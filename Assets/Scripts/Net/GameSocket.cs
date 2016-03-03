@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Threading;
-
+using System.IO;
 public class GameSocket : System.IDisposable{
     public System.Action<byte[]> onReceiveMessage;
     public System.Action onDisconnect;
     private Queue<byte[]> msgQue = new Queue<byte[]>();
     private TcpClient client;
+
+    public void Flush()
+    {
+        client.GetStream().Flush();
+    }
+    public Stream GetStream(){
+        return client.GetStream();
+    }
     public bool Error
     {
         get;
@@ -55,10 +63,10 @@ public class GameSocket : System.IDisposable{
 
     public IEnumerator Dispatcher() {
         while (Connected) {
+            yield return null;
             lock (msgQue) {
                 while (msgQue.Count > 0)
                 {
-                    yield return null;
                     var msg = msgQue.Dequeue();
                     if (onReceiveMessage != null)
                     {
@@ -80,6 +88,7 @@ public class GameSocket : System.IDisposable{
                 break;
             }
             int msgLen = System.BitConverter.ToInt32(len_buf, 0);
+            Debug.Log("receive: " + msgLen);
             byte[] msgbuf = new byte[msgLen];
             if (!ReadStream(stream, msgbuf, 0, msgLen))
             {

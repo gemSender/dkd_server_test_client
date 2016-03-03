@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
-
-public class ConnectionHandler : MonoBehaviour {
-    public static ConnectionHandler instance
+using Google.ProtocolBuffers;
+public class ConnectionHandler : MonoBehaviour
+{
+    public static ConnectionHandler Instance
     {
         get;
         private set;
@@ -10,11 +11,13 @@ public class ConnectionHandler : MonoBehaviour {
     private GameSocket socket;
 
     void Awake() {
-        instance = this;
+        Instance = this;
     }
 
     void OnDestroy() {
-        instance = null;
+        Instance = null;
+        if (socket != null)
+            socket.Dispose();
     }
     public bool Connectd {
         get {
@@ -33,9 +36,14 @@ public class ConnectionHandler : MonoBehaviour {
     }
 	// Use this for initialization
 
+    void OnReceiveMsg(byte[] bytes)
+    {
+        Debug.Log("receive bytes, length: " + bytes.Length);
+    }
     public void Connect() {
         if (socket != null)
             socket.Dispose();
+        StartCoroutine(StartConnect());
     }
 
     IEnumerator StartConnect()
@@ -44,9 +52,27 @@ public class ConnectionHandler : MonoBehaviour {
         while(!socket.Connected){
             yield return null;
         }
+        socket.onReceiveMessage = this.OnReceiveMsg;
         StartCoroutine(socket.Dispatcher());
     }
-    public void Send(object message) { 
-        
+    public void Send(System.ArraySegment<byte> bytes) {
+        socket.Send(bytes);
+    }
+
+    public void Send(IMessage msg)
+    {
+        var stream = socket.GetStream();
+        int size = msg.SerializedSize;
+        unsafe {
+            int* pSize = stackalloc int[1];
+            pSize[0] = size;
+            byte* bp = (byte*)pSize;
+            stream.WriteByte(bp[3]);
+            stream.WriteByte(bp[2]);
+            stream.WriteByte(bp[1]);
+            stream.WriteByte(bp[0]);
+        }
+        msg.WriteTo(stream);
+        socket.Flush();
     }
 }
