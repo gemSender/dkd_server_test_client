@@ -1,0 +1,3 @@
+[submodule "Assets/proto_files"]
+	path = Assets/proto_files
+	url = https://github.com/gemSender/dkd_server_protofiles.git
