@@ -6,9 +6,13 @@ using System.Threading;
 using System.IO;
 public class GameSocket : System.IDisposable{
     public System.Action<byte[]> onReceiveMessage;
+    public System.Action onConnected;
     public System.Action onDisconnect;
-    private Queue<byte[]> msgQue = new Queue<byte[]>();
+    private Queue<byte[]> receiveMsgQue = new Queue<byte[]>();
+    private Queue<byte[]> sendMsgQue = new Queue<byte[]>();
     private TcpClient client;
+    private string host;
+    private int port;
 
     public void Flush()
     {
@@ -31,6 +35,11 @@ public class GameSocket : System.IDisposable{
     public GameSocket(string host, int port) {
         Connected = false;
         client = new TcpClient();
+        this.host = host;
+        this.port = port;
+    }
+
+    public void Connect() {
         client.BeginConnect(host, port, ConnectCallback, null);
     }
 
@@ -39,6 +48,9 @@ public class GameSocket : System.IDisposable{
         {
             client.EndConnect(res);
             Connected = true;
+            if (onConnected != null) {
+                onConnected();
+            }
             new Thread(new ThreadStart(RecvLoop)).Start();
         }
         catch (System.Exception e){
@@ -53,10 +65,10 @@ public class GameSocket : System.IDisposable{
             return;
         var stream = client.GetStream();
         int len = bytes.Count;
-        stream.WriteByte((byte)(len >> 24));
-        stream.WriteByte((byte)(len >> 16));
-        stream.WriteByte((byte)(len >> 8));
-        stream.WriteByte((byte)len);
+        stream.WriteByte((byte)(len & 0xFF));
+        stream.WriteByte((byte)(len >> 8 & 0xFF));
+        stream.WriteByte((byte)(len >> 16 & 0xFF));
+        stream.WriteByte((byte)(len >> 24 & 0xFF));
         stream.Write(bytes.Array, bytes.Offset, len);
         stream.Flush();
     }
@@ -64,10 +76,10 @@ public class GameSocket : System.IDisposable{
     public IEnumerator Dispatcher() {
         while (Connected) {
             yield return null;
-            lock (msgQue) {
-                while (msgQue.Count > 0)
+            lock (receiveMsgQue) {
+                while (receiveMsgQue.Count > 0)
                 {
-                    var msg = msgQue.Dequeue();
+                    var msg = receiveMsgQue.Dequeue();
                     if (onReceiveMessage != null)
                     {
                         onReceiveMessage(msg);
@@ -94,10 +106,11 @@ public class GameSocket : System.IDisposable{
             {
                 break;
             }
-            lock (msgQue) {
-                msgQue.Enqueue(msgbuf);
+            lock (receiveMsgQue) {
+                receiveMsgQue.Enqueue(msgbuf);
             }
         }
+        Debug.Log("ReceiveLoop Quited");
         Connected = false;
     }
 
@@ -105,6 +118,7 @@ public class GameSocket : System.IDisposable{
     {
         int sum = 0;
         bool ok = true;
+
         while(sum < count){
             try
             {
@@ -122,6 +136,7 @@ public class GameSocket : System.IDisposable{
     public void Dispose()
     {
         Connected = false;
+        client.GetStream().Close();
         client.Close();
     }
 }

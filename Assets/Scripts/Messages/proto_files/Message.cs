@@ -18,8 +18,8 @@ namespace messages {
     }
     #endregion
     #region Static variables
-    internal static pbd::MessageDescriptor internal__static_messages_GemMessage__Descriptor;
-    internal static pb::FieldAccess.FieldAccessorTable<global::messages.GemMessage, global::messages.GemMessage.Builder> internal__static_messages_GemMessage__FieldAccessorTable;
+    internal static pbd::MessageDescriptor internal__static_messages_GenMessage__Descriptor;
+    internal static pb::FieldAccess.FieldAccessorTable<global::messages.GenMessage, global::messages.GenMessage.Builder> internal__static_messages_GenMessage__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_Login__Descriptor;
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.Login, global::messages.Login.Builder> internal__static_messages_Login__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_MoveTo__Descriptor;
@@ -39,19 +39,19 @@ namespace messages {
     
     static Message() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
-          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyI0CgpHZW1NZXNzYWdlEhIKBHR5" + 
-          "cGUYASABKAlSBHR5cGUSEgoEZGF0YRgCIAEoDFIEZGF0YSIXCgVMb2dpbhIO" + 
-          "CgJpZBgBIAEoCVICaWQiJAoGTW92ZVRvEgwKAXgYASABKAJSAXgSDAoBeRgC" + 
-          "IAEoAlIBeSI6CgxQbGF5ZXJNb3ZlVG8SDgoCaWQYASABKAlSAmlkEgwKAXgY" + 
-          "AiABKAJSAXgSDAoBeRgDIAEoAlIBeSI5CgtQbGF5ZXJMb2dpbhIOCgJpZBgB" + 
-          "IAEoCVICaWQSDAoBeBgCIAEoAlIBeBIMCgF5GAMgASgCUgF5Ik8KC0dlblJl" + 
-          "cGx5TXNnEhIKBHR5cGUYASABKAlSBHR5cGUSGAoHaXNSZXBseRgCIAEoCFIH" + 
-          "aXNSZXBseRISCgRkYXRhGAMgASgMUgRkYXRhYgZwcm90bzM=");
+          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyIoCgpHZW5NZXNzYWdlEgwKBHR5" + 
+          "cGUYASACKAkSDAoEZGF0YRgCIAIoDCITCgVMb2dpbhIKCgJpZBgBIAIoCSI6" + 
+          "CgZNb3ZlVG8SCQoBeBgBIAIoAhIJCgF5GAIgAigCEgwKBGRpclgYAyACKAIS" + 
+          "DAoEZGlyWRgEIAIoAiJMCgxQbGF5ZXJNb3ZlVG8SCgoCaWQYASACKAkSCQoB" + 
+          "eBgCIAIoAhIJCgF5GAMgAigCEgwKBGRpclgYBCACKAISDAoEZGlyWRgFIAIo" + 
+          "AiIvCgtQbGF5ZXJMb2dpbhIKCgJpZBgBIAIoCRIJCgF4GAIgAigCEgkKAXkY" + 
+          "AyACKAIiOgoLR2VuUmVwbHlNc2cSDAoEdHlwZRgBIAIoCRIPCgdpc1JlcGx5" + 
+          "GAIgAigIEgwKBGRhdGEYAyACKAw=");
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
-        internal__static_messages_GemMessage__Descriptor = Descriptor.MessageTypes[0];
-        internal__static_messages_GemMessage__FieldAccessorTable = 
-            new pb::FieldAccess.FieldAccessorTable<global::messages.GemMessage, global::messages.GemMessage.Builder>(internal__static_messages_GemMessage__Descriptor,
+        internal__static_messages_GenMessage__Descriptor = Descriptor.MessageTypes[0];
+        internal__static_messages_GenMessage__FieldAccessorTable = 
+            new pb::FieldAccess.FieldAccessorTable<global::messages.GenMessage, global::messages.GenMessage.Builder>(internal__static_messages_GenMessage__Descriptor,
                 new string[] { "Type", "Data", });
         internal__static_messages_Login__Descriptor = Descriptor.MessageTypes[1];
         internal__static_messages_Login__FieldAccessorTable = 
@@ -60,11 +60,11 @@ namespace messages {
         internal__static_messages_MoveTo__Descriptor = Descriptor.MessageTypes[2];
         internal__static_messages_MoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.MoveTo, global::messages.MoveTo.Builder>(internal__static_messages_MoveTo__Descriptor,
-                new string[] { "X", "Y", });
+                new string[] { "X", "Y", "DirX", "DirY", });
         internal__static_messages_PlayerMoveTo__Descriptor = Descriptor.MessageTypes[3];
         internal__static_messages_PlayerMoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerMoveTo, global::messages.PlayerMoveTo.Builder>(internal__static_messages_PlayerMoveTo__Descriptor,
-                new string[] { "Id", "X", "Y", });
+                new string[] { "Id", "X", "Y", "DirX", "DirY", });
         internal__static_messages_PlayerLogin__Descriptor = Descriptor.MessageTypes[4];
         internal__static_messages_PlayerLogin__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerLogin, global::messages.PlayerLogin.Builder>(internal__static_messages_PlayerLogin__Descriptor,
@@ -73,9 +73,7 @@ namespace messages {
         internal__static_messages_GenReplyMsg__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.GenReplyMsg, global::messages.GenReplyMsg.Builder>(internal__static_messages_GenReplyMsg__Descriptor,
                 new string[] { "Type", "IsReply", "Data", });
-        pb::ExtensionRegistry registry = pb::ExtensionRegistry.CreateInstance();
-        RegisterAllExtensions(registry);
-        return registry;
+        return null;
       };
       pbd::FileDescriptor.InternalBuildGeneratedFileFrom(descriptorData,
           new pbd::FileDescriptor[] {
@@ -88,29 +86,29 @@ namespace messages {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
   [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
-  public sealed partial class GemMessage : pb::GeneratedMessage<GemMessage, GemMessage.Builder> {
-    private GemMessage() { }
-    private static readonly GemMessage defaultInstance = new GemMessage().MakeReadOnly();
-    private static readonly string[] _gemMessageFieldNames = new string[] { "data", "type" };
-    private static readonly uint[] _gemMessageFieldTags = new uint[] { 18, 10 };
-    public static GemMessage DefaultInstance {
+  public sealed partial class GenMessage : pb::GeneratedMessage<GenMessage, GenMessage.Builder> {
+    private GenMessage() { }
+    private static readonly GenMessage defaultInstance = new GenMessage().MakeReadOnly();
+    private static readonly string[] _genMessageFieldNames = new string[] { "data", "type" };
+    private static readonly uint[] _genMessageFieldTags = new uint[] { 18, 10 };
+    public static GenMessage DefaultInstance {
       get { return defaultInstance; }
     }
     
-    public override GemMessage DefaultInstanceForType {
+    public override GenMessage DefaultInstanceForType {
       get { return DefaultInstance; }
     }
     
-    protected override GemMessage ThisMessage {
+    protected override GenMessage ThisMessage {
       get { return this; }
     }
     
     public static pbd::MessageDescriptor Descriptor {
-      get { return global::messages.Message.internal__static_messages_GemMessage__Descriptor; }
+      get { return global::messages.Message.internal__static_messages_GenMessage__Descriptor; }
     }
     
-    protected override pb::FieldAccess.FieldAccessorTable<GemMessage, GemMessage.Builder> InternalFieldAccessors {
-      get { return global::messages.Message.internal__static_messages_GemMessage__FieldAccessorTable; }
+    protected override pb::FieldAccess.FieldAccessorTable<GenMessage, GenMessage.Builder> InternalFieldAccessors {
+      get { return global::messages.Message.internal__static_messages_GenMessage__FieldAccessorTable; }
     }
     
     public const int TypeFieldNumber = 1;
@@ -135,13 +133,15 @@ namespace messages {
     
     public override bool IsInitialized {
       get {
+        if (!hasType) return false;
+        if (!hasData) return false;
         return true;
       }
     }
     
     public override void WriteTo(pb::ICodedOutputStream output) {
       int size = SerializedSize;
-      string[] field_names = _gemMessageFieldNames;
+      string[] field_names = _genMessageFieldNames;
       if (hasType) {
         output.WriteString(1, field_names[1], Type);
       }
@@ -170,51 +170,51 @@ namespace messages {
       }
     }
     
-    public static GemMessage ParseFrom(pb::ByteString data) {
+    public static GenMessage ParseFrom(pb::ByteString data) {
       return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
     }
-    public static GemMessage ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
+    public static GenMessage ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
       return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
     }
-    public static GemMessage ParseFrom(byte[] data) {
+    public static GenMessage ParseFrom(byte[] data) {
       return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
     }
-    public static GemMessage ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
+    public static GenMessage ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
       return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
     }
-    public static GemMessage ParseFrom(global::System.IO.Stream input) {
+    public static GenMessage ParseFrom(global::System.IO.Stream input) {
       return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
     }
-    public static GemMessage ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+    public static GenMessage ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
       return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
     }
-    public static GemMessage ParseDelimitedFrom(global::System.IO.Stream input) {
+    public static GenMessage ParseDelimitedFrom(global::System.IO.Stream input) {
       return CreateBuilder().MergeDelimitedFrom(input).BuildParsed();
     }
-    public static GemMessage ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+    public static GenMessage ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
       return CreateBuilder().MergeDelimitedFrom(input, extensionRegistry).BuildParsed();
     }
-    public static GemMessage ParseFrom(pb::ICodedInputStream input) {
+    public static GenMessage ParseFrom(pb::ICodedInputStream input) {
       return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
     }
-    public static GemMessage ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+    public static GenMessage ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
       return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
     }
-    private GemMessage MakeReadOnly() {
+    private GenMessage MakeReadOnly() {
       return this;
     }
     
     public static Builder CreateBuilder() { return new Builder(); }
     public override Builder ToBuilder() { return CreateBuilder(this); }
     public override Builder CreateBuilderForType() { return new Builder(); }
-    public static Builder CreateBuilder(GemMessage prototype) {
+    public static Builder CreateBuilder(GenMessage prototype) {
       return new Builder(prototype);
     }
     
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
-    public sealed partial class Builder : pb::GeneratedBuilder<GemMessage, Builder> {
+    public sealed partial class Builder : pb::GeneratedBuilder<GenMessage, Builder> {
       protected override Builder ThisBuilder {
         get { return this; }
       }
@@ -222,18 +222,18 @@ namespace messages {
         result = DefaultInstance;
         resultIsReadOnly = true;
       }
-      internal Builder(GemMessage cloneFrom) {
+      internal Builder(GenMessage cloneFrom) {
         result = cloneFrom;
         resultIsReadOnly = true;
       }
       
       private bool resultIsReadOnly;
-      private GemMessage result;
+      private GenMessage result;
       
-      private GemMessage PrepareBuilder() {
+      private GenMessage PrepareBuilder() {
         if (resultIsReadOnly) {
-          GemMessage original = result;
-          result = new GemMessage();
+          GenMessage original = result;
+          result = new GenMessage();
           resultIsReadOnly = false;
           MergeFrom(original);
         }
@@ -244,7 +244,7 @@ namespace messages {
         get { return result.IsInitialized; }
       }
       
-      protected override GemMessage MessageBeingBuilt {
+      protected override GenMessage MessageBeingBuilt {
         get { return PrepareBuilder(); }
       }
       
@@ -263,14 +263,14 @@ namespace messages {
       }
       
       public override pbd::MessageDescriptor DescriptorForType {
-        get { return global::messages.GemMessage.Descriptor; }
+        get { return global::messages.GenMessage.Descriptor; }
       }
       
-      public override GemMessage DefaultInstanceForType {
-        get { return global::messages.GemMessage.DefaultInstance; }
+      public override GenMessage DefaultInstanceForType {
+        get { return global::messages.GenMessage.DefaultInstance; }
       }
       
-      public override GemMessage BuildPartial() {
+      public override GenMessage BuildPartial() {
         if (resultIsReadOnly) {
           return result;
         }
@@ -279,16 +279,16 @@ namespace messages {
       }
       
       public override Builder MergeFrom(pb::IMessage other) {
-        if (other is GemMessage) {
-          return MergeFrom((GemMessage) other);
+        if (other is GenMessage) {
+          return MergeFrom((GenMessage) other);
         } else {
           base.MergeFrom(other);
           return this;
         }
       }
       
-      public override Builder MergeFrom(GemMessage other) {
-        if (other == global::messages.GemMessage.DefaultInstance) return this;
+      public override Builder MergeFrom(GenMessage other) {
+        if (other == global::messages.GenMessage.DefaultInstance) return this;
         PrepareBuilder();
         if (other.HasType) {
           Type = other.Type;
@@ -311,9 +311,9 @@ namespace messages {
         string field_name;
         while (input.ReadTag(out tag, out field_name)) {
           if(tag == 0 && field_name != null) {
-            int field_ordinal = global::System.Array.BinarySearch(_gemMessageFieldNames, field_name, global::System.StringComparer.Ordinal);
+            int field_ordinal = global::System.Array.BinarySearch(_genMessageFieldNames, field_name, global::System.StringComparer.Ordinal);
             if(field_ordinal >= 0)
-              tag = _gemMessageFieldTags[field_ordinal];
+              tag = _genMessageFieldTags[field_ordinal];
             else {
               if (unknownFields == null) {
                 unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
@@ -399,7 +399,7 @@ namespace messages {
         return this;
       }
     }
-    static GemMessage() {
+    static GenMessage() {
       object.ReferenceEquals(global::messages.Message.Descriptor, null);
     }
   }
@@ -444,6 +444,7 @@ namespace messages {
     
     public override bool IsInitialized {
       get {
+        if (!hasId) return false;
         return true;
       }
     }
@@ -685,8 +686,8 @@ namespace messages {
   public sealed partial class MoveTo : pb::GeneratedMessage<MoveTo, MoveTo.Builder> {
     private MoveTo() { }
     private static readonly MoveTo defaultInstance = new MoveTo().MakeReadOnly();
-    private static readonly string[] _moveToFieldNames = new string[] { "x", "y" };
-    private static readonly uint[] _moveToFieldTags = new uint[] { 13, 21 };
+    private static readonly string[] _moveToFieldNames = new string[] { "dirX", "dirY", "x", "y" };
+    private static readonly uint[] _moveToFieldTags = new uint[] { 29, 37, 13, 21 };
     public static MoveTo DefaultInstance {
       get { return defaultInstance; }
     }
@@ -727,8 +728,32 @@ namespace messages {
       get { return y_; }
     }
     
+    public const int DirXFieldNumber = 3;
+    private bool hasDirX;
+    private float dirX_;
+    public bool HasDirX {
+      get { return hasDirX; }
+    }
+    public float DirX {
+      get { return dirX_; }
+    }
+    
+    public const int DirYFieldNumber = 4;
+    private bool hasDirY;
+    private float dirY_;
+    public bool HasDirY {
+      get { return hasDirY; }
+    }
+    public float DirY {
+      get { return dirY_; }
+    }
+    
     public override bool IsInitialized {
       get {
+        if (!hasX) return false;
+        if (!hasY) return false;
+        if (!hasDirX) return false;
+        if (!hasDirY) return false;
         return true;
       }
     }
@@ -737,10 +762,16 @@ namespace messages {
       int size = SerializedSize;
       string[] field_names = _moveToFieldNames;
       if (hasX) {
-        output.WriteFloat(1, field_names[0], X);
+        output.WriteFloat(1, field_names[2], X);
       }
       if (hasY) {
-        output.WriteFloat(2, field_names[1], Y);
+        output.WriteFloat(2, field_names[3], Y);
+      }
+      if (hasDirX) {
+        output.WriteFloat(3, field_names[0], DirX);
+      }
+      if (hasDirY) {
+        output.WriteFloat(4, field_names[1], DirY);
       }
       UnknownFields.WriteTo(output);
     }
@@ -757,6 +788,12 @@ namespace messages {
         }
         if (hasY) {
           size += pb::CodedOutputStream.ComputeFloatSize(2, Y);
+        }
+        if (hasDirX) {
+          size += pb::CodedOutputStream.ComputeFloatSize(3, DirX);
+        }
+        if (hasDirY) {
+          size += pb::CodedOutputStream.ComputeFloatSize(4, DirY);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -890,6 +927,12 @@ namespace messages {
         if (other.HasY) {
           Y = other.Y;
         }
+        if (other.HasDirX) {
+          DirX = other.DirX;
+        }
+        if (other.HasDirY) {
+          DirY = other.DirY;
+        }
         this.MergeUnknownFields(other.UnknownFields);
         return this;
       }
@@ -941,6 +984,14 @@ namespace messages {
               result.hasY = input.ReadFloat(ref result.y_);
               break;
             }
+            case 29: {
+              result.hasDirX = input.ReadFloat(ref result.dirX_);
+              break;
+            }
+            case 37: {
+              result.hasDirY = input.ReadFloat(ref result.dirY_);
+              break;
+            }
           }
         }
         
@@ -990,6 +1041,46 @@ namespace messages {
         result.y_ = 0F;
         return this;
       }
+      
+      public bool HasDirX {
+        get { return result.hasDirX; }
+      }
+      public float DirX {
+        get { return result.DirX; }
+        set { SetDirX(value); }
+      }
+      public Builder SetDirX(float value) {
+        PrepareBuilder();
+        result.hasDirX = true;
+        result.dirX_ = value;
+        return this;
+      }
+      public Builder ClearDirX() {
+        PrepareBuilder();
+        result.hasDirX = false;
+        result.dirX_ = 0F;
+        return this;
+      }
+      
+      public bool HasDirY {
+        get { return result.hasDirY; }
+      }
+      public float DirY {
+        get { return result.DirY; }
+        set { SetDirY(value); }
+      }
+      public Builder SetDirY(float value) {
+        PrepareBuilder();
+        result.hasDirY = true;
+        result.dirY_ = value;
+        return this;
+      }
+      public Builder ClearDirY() {
+        PrepareBuilder();
+        result.hasDirY = false;
+        result.dirY_ = 0F;
+        return this;
+      }
     }
     static MoveTo() {
       object.ReferenceEquals(global::messages.Message.Descriptor, null);
@@ -1002,8 +1093,8 @@ namespace messages {
   public sealed partial class PlayerMoveTo : pb::GeneratedMessage<PlayerMoveTo, PlayerMoveTo.Builder> {
     private PlayerMoveTo() { }
     private static readonly PlayerMoveTo defaultInstance = new PlayerMoveTo().MakeReadOnly();
-    private static readonly string[] _playerMoveToFieldNames = new string[] { "id", "x", "y" };
-    private static readonly uint[] _playerMoveToFieldTags = new uint[] { 10, 21, 29 };
+    private static readonly string[] _playerMoveToFieldNames = new string[] { "dirX", "dirY", "id", "x", "y" };
+    private static readonly uint[] _playerMoveToFieldTags = new uint[] { 37, 45, 10, 21, 29 };
     public static PlayerMoveTo DefaultInstance {
       get { return defaultInstance; }
     }
@@ -1054,8 +1145,33 @@ namespace messages {
       get { return y_; }
     }
     
+    public const int DirXFieldNumber = 4;
+    private bool hasDirX;
+    private float dirX_;
+    public bool HasDirX {
+      get { return hasDirX; }
+    }
+    public float DirX {
+      get { return dirX_; }
+    }
+    
+    public const int DirYFieldNumber = 5;
+    private bool hasDirY;
+    private float dirY_;
+    public bool HasDirY {
+      get { return hasDirY; }
+    }
+    public float DirY {
+      get { return dirY_; }
+    }
+    
     public override bool IsInitialized {
       get {
+        if (!hasId) return false;
+        if (!hasX) return false;
+        if (!hasY) return false;
+        if (!hasDirX) return false;
+        if (!hasDirY) return false;
         return true;
       }
     }
@@ -1064,13 +1180,19 @@ namespace messages {
       int size = SerializedSize;
       string[] field_names = _playerMoveToFieldNames;
       if (hasId) {
-        output.WriteString(1, field_names[0], Id);
+        output.WriteString(1, field_names[2], Id);
       }
       if (hasX) {
-        output.WriteFloat(2, field_names[1], X);
+        output.WriteFloat(2, field_names[3], X);
       }
       if (hasY) {
-        output.WriteFloat(3, field_names[2], Y);
+        output.WriteFloat(3, field_names[4], Y);
+      }
+      if (hasDirX) {
+        output.WriteFloat(4, field_names[0], DirX);
+      }
+      if (hasDirY) {
+        output.WriteFloat(5, field_names[1], DirY);
       }
       UnknownFields.WriteTo(output);
     }
@@ -1090,6 +1212,12 @@ namespace messages {
         }
         if (hasY) {
           size += pb::CodedOutputStream.ComputeFloatSize(3, Y);
+        }
+        if (hasDirX) {
+          size += pb::CodedOutputStream.ComputeFloatSize(4, DirX);
+        }
+        if (hasDirY) {
+          size += pb::CodedOutputStream.ComputeFloatSize(5, DirY);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -1226,6 +1354,12 @@ namespace messages {
         if (other.HasY) {
           Y = other.Y;
         }
+        if (other.HasDirX) {
+          DirX = other.DirX;
+        }
+        if (other.HasDirY) {
+          DirY = other.DirY;
+        }
         this.MergeUnknownFields(other.UnknownFields);
         return this;
       }
@@ -1279,6 +1413,14 @@ namespace messages {
             }
             case 29: {
               result.hasY = input.ReadFloat(ref result.y_);
+              break;
+            }
+            case 37: {
+              result.hasDirX = input.ReadFloat(ref result.dirX_);
+              break;
+            }
+            case 45: {
+              result.hasDirY = input.ReadFloat(ref result.dirY_);
               break;
             }
           }
@@ -1351,6 +1493,46 @@ namespace messages {
         result.y_ = 0F;
         return this;
       }
+      
+      public bool HasDirX {
+        get { return result.hasDirX; }
+      }
+      public float DirX {
+        get { return result.DirX; }
+        set { SetDirX(value); }
+      }
+      public Builder SetDirX(float value) {
+        PrepareBuilder();
+        result.hasDirX = true;
+        result.dirX_ = value;
+        return this;
+      }
+      public Builder ClearDirX() {
+        PrepareBuilder();
+        result.hasDirX = false;
+        result.dirX_ = 0F;
+        return this;
+      }
+      
+      public bool HasDirY {
+        get { return result.hasDirY; }
+      }
+      public float DirY {
+        get { return result.DirY; }
+        set { SetDirY(value); }
+      }
+      public Builder SetDirY(float value) {
+        PrepareBuilder();
+        result.hasDirY = true;
+        result.dirY_ = value;
+        return this;
+      }
+      public Builder ClearDirY() {
+        PrepareBuilder();
+        result.hasDirY = false;
+        result.dirY_ = 0F;
+        return this;
+      }
     }
     static PlayerMoveTo() {
       object.ReferenceEquals(global::messages.Message.Descriptor, null);
@@ -1417,6 +1599,9 @@ namespace messages {
     
     public override bool IsInitialized {
       get {
+        if (!hasId) return false;
+        if (!hasX) return false;
+        if (!hasY) return false;
         return true;
       }
     }
@@ -1778,6 +1963,9 @@ namespace messages {
     
     public override bool IsInitialized {
       get {
+        if (!hasType) return false;
+        if (!hasIsReply) return false;
+        if (!hasData) return false;
         return true;
       }
     }
