@@ -79,7 +79,7 @@ public class ProtoObserver : AssetPostprocessor
         p.StartInfo.CreateNoWindow = true;
         var tempFileName = fullFileName + "bin";
         p.StartInfo.Arguments = string.Format("-I={0} --descriptor_set_out={1} --include_imports {2}", src_dir, tempFileName, fullFileName);
-        Debug.Log("protoc " + p.StartInfo.Arguments);
+        Debug.Log("executing command: protoc " + p.StartInfo.Arguments);
         p.Start();//启动程序
         string output = p.StandardOutput.ReadToEnd();
         p.WaitForExit();//等待程序执行完退出进程
@@ -94,7 +94,7 @@ public class ProtoObserver : AssetPostprocessor
         p.StartInfo.RedirectStandardError = true;
         p.StartInfo.CreateNoWindow = true;
         p.StartInfo.Arguments = string.Format("-output_directory={0} {1}", outdir, tempFileName);
-        Debug.Log("ProtoGen " + p.StartInfo.Arguments);
+        Debug.Log("executing command: ProtoGen " + p.StartInfo.Arguments);
         p.Start();//启动程序
         output = p.StandardOutput.ReadToEnd();
         p.WaitForExit();//等待程序执行完退出进程
@@ -130,6 +130,7 @@ public class ProtoObserver : AssetPostprocessor
         Clean();
         AssetDatabase.Refresh();
     }
+
     static void Clean()
     {
         var assetPath = Application.dataPath;
@@ -145,5 +146,33 @@ public class ProtoObserver : AssetPostprocessor
         {
             item.Delete();
         }
+    }
+
+    [MenuItem("Window/ProtoBuf/UpdateProtoFiles")]
+    static void UpdateProtoFiles() {
+        System.Diagnostics.Process p = new System.Diagnostics.Process();
+#if UNITY_EDITOR_WIN
+        p.StartInfo.FileName = "git.exe";
+#else
+        p.StartInfo.FileName = "git";
+#endif
+        p.StartInfo.UseShellExecute = false;
+        p.StartInfo.RedirectStandardInput = true;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.RedirectStandardError = true;
+        p.StartInfo.CreateNoWindow = true;
+        p.StartInfo.WorkingDirectory = System.IO.Path.Combine(Application.dataPath, "proto_files/");
+        p.StartInfo.Arguments = "pull origin master";
+        Debug.Log("executing command: git " + p.StartInfo.Arguments);
+        p.Start();//启动程序
+        string output = p.StandardOutput.ReadToEnd();
+        string errorOutput = p.StandardError.ReadToEnd();
+        p.WaitForExit();//等待程序执行完退出进程
+        p.Close();
+        Debug.Log(output);
+        if (!string.IsNullOrEmpty(errorOutput)) {
+            Debug.LogWarning(errorOutput);
+        }
+        AssetDatabase.Refresh();
     }
 }

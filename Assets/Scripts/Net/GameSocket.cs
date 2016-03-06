@@ -9,7 +9,6 @@ public class GameSocket : System.IDisposable{
     public System.Action onConnected;
     public System.Action onDisconnect;
     private Queue<byte[]> receiveMsgQue = new Queue<byte[]>();
-    private Queue<byte[]> sendMsgQue = new Queue<byte[]>();
     private TcpClient client;
     private string host;
     private int port;
@@ -136,7 +135,6 @@ public class GameSocket : System.IDisposable{
     public void Dispose()
     {
         Connected = false;
-        client.GetStream().Close();
         client.Close();
     }
 }

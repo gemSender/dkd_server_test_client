@@ -10,11 +10,6 @@ public class LoginNetwork : GenNetwork<LoginNetwork>
     }
 
     void OtherPlayerLoginCallback(messages.PlayerLogin msg) {
-        var go = Instantiate(Resources.Load("Player")) as GameObject;
-        var goTrans = go.transform;
-        goTrans.localPosition = new Vector3(msg.X, 0.5f, msg.Y);
-        var player = goTrans.GetComponent<Player>();
-        player.Id = msg.Id;
-        player.IsMine = false;
+        Player.Create(msg.Id, msg.X, msg.Y, false, msg.ColorIndex, msg.Timestamp);
     }
 }

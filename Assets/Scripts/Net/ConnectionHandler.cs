@@ -8,11 +8,25 @@ public class ConnectionHandler : MonoBehaviour
     public string host = "127.0.0.1";
     public int port = 1234;
     private Dictionary<string, System.Action<ByteString>> actionDict = new Dictionary<string, System.Action<ByteString>>();
+    private Queue<System.Action<ByteString>> callbackQue = new Queue<System.Action<ByteString>>();
+    private long loginTime;
+    private float loginTimeSinceGameStartup;
+    public long CurrentTimeMS {
+        get {
+            return loginTime + Mathf.FloorToInt((Time.realtimeSinceStartup - loginTimeSinceGameStartup) *  1000);
+        }
+    }
+
+    public void SetLoginTime(long loginTime, float timeSecSinceLogin) {
+        this.loginTime = loginTime;
+        this.loginTimeSinceGameStartup = timeSecSinceLogin;
+    }
     public static ConnectionHandler Instance
     {
         get;
         private set;
     }
+
     private GameSocket socket;
 
     public float TimeSinceLogin
@@ -68,8 +82,17 @@ public class ConnectionHandler : MonoBehaviour
     void OnReceiveMsg(byte[] bytes)
     {
         var msg = messages.GenReplyMsg.ParseFrom(bytes);
-        var action = actionDict[msg.Type];
-        action(msg.Data);
+        Debug.Log("receive message, type: " + msg.Type);
+        if (msg.IsReply)
+        {
+            var action = callbackQue.Dequeue();
+            action(msg.Data);
+        }
+        else
+        {
+            var action = actionDict[msg.Type];
+            action(msg.Data);
+        }
     }
     public void Connect() {
         if (socket != null)
@@ -98,7 +121,7 @@ public class ConnectionHandler : MonoBehaviour
         Debug.Log("connection break");
     }
 
-    public void Send(byte[] array, int offset, int count) {
+    void Send(byte[] array, int offset, int count) {
         var stream = socket.GetStream();
         if (stream.CanWrite) {
             stream.BeginWrite(array, offset, count, (s) => {
@@ -112,9 +135,18 @@ public class ConnectionHandler : MonoBehaviour
         Send(builder.Build());
     }
 
+    public void SendUnpackedMessage<T>(IMessage msg, System.Func<ByteString, T> parserFunc, System.Action<T> callback) {
+        System.Action<ByteString> callbackItem = (bs) =>
+        {
+            T reply = parserFunc(bs);
+            callback(reply);
+        };
+        callbackQue.Enqueue(callbackItem);
+        SendUnpackedMessage(msg);
+    }
+
     void Send(IMessage msg)
     {
-        var netStream = socket.GetStream();
         int size = msg.SerializedSize;
         using(MemoryStream memStream = new MemoryStream(size + 4))
         {
