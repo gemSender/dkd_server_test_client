@@ -68,6 +68,9 @@ public class Player : MonoBehaviour {
                     var hitPos = hit.point;
                     agent.SetDestination(hitPos);
                     state = State.Moving;
+                    var currentPos = transform.localPosition;
+                    ConnectionHandler.Instance.SendUnpackedMessage(messages.StartPath.CreateBuilder()
+                        .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build());
                 }
             }
             var now = ConnectionHandler.Instance.CurrentTimeMS;
@@ -97,9 +100,25 @@ public class Player : MonoBehaviour {
         transform.forward = new Vector3(xDir, 0 , yDir);
     }
 
+    public void StartPath(float sx, float sy, float dx, float dy, float timestamp) {
+        Ray ray = new Ray(new Vector3(dx, 100, dy), Vector3.down);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            var hitPos = hit.point;
+            var currentPos = transform.localPosition;
+            currentPos.x = sx;
+            currentPos.z = sy;
+            transform.localPosition = currentPos;
+            agent.SetDestination(hitPos);
+            state = State.Moving;
+        }
+    }
+
     void OnGUI() {
         if (IsMine) {
             GUILayout.Button(this.Id);
+            GUILayout.Button(agent.nextPosition.ToString());
         }
     }
 }

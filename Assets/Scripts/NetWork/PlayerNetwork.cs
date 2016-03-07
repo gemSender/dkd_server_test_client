@@ -7,6 +7,7 @@ public class PlayerNetwork : GenNetwork<PlayerNetwork> {
         base.Start();
         ConnectionHandler.Instance.RegisterCallBack<messages.PlayerMoveTo>(messages.PlayerMoveTo.ParseFrom, OnPlayerMoveTo);
         ConnectionHandler.Instance.RegisterCallBack<messages.PlayerQuit>(messages.PlayerQuit.ParseFrom, OnPlayerQuit);
+        ConnectionHandler.Instance.RegisterCallBack<messages.PlayerStartPath>(messages.PlayerStartPath.ParseFrom, OnPlayerStartPath);
     }
 
     void OnPlayerMoveTo(messages.PlayerMoveTo msg) {
@@ -16,5 +17,9 @@ public class PlayerNetwork : GenNetwork<PlayerNetwork> {
 
     void OnPlayerQuit(messages.PlayerQuit msg) {
         Player.RemovePlayer(msg.Id);
+    }
+
+    void OnPlayerStartPath(messages.PlayerStartPath msg) {
+        Player.GetPlayer(msg.Id).StartPath(msg.Sx, msg.Sy, msg.Dx, msg.Dy, msg.Timestamp);
     }
 }
