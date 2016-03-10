@@ -97,6 +97,8 @@ public class Player : MonoBehaviour {
         currentPos.x = x;
         currentPos.z = y;
         transform.localPosition = currentPos;
+        Debug.Log(agent.velocity);
+        currentPos += agent.velocity * ((ConnectionHandler.Instance.CurrentTimeMS - timestamp) / 1000.0f);
         transform.forward = new Vector3(xDir, 0 , yDir);
     }
 

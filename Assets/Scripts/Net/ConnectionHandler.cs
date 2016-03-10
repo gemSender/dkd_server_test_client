@@ -82,7 +82,7 @@ public class ConnectionHandler : MonoBehaviour
     void OnReceiveMsg(byte[] bytes)
     {
         var msg = messages.GenReplyMsg.ParseFrom(bytes);
-        Debug.Log("receive message, type: " + msg.Type);
+        //Debug.Log("receive message, type: " + msg.Type);
         if (msg.IsReply)
         {
             var action = callbackQue.Dequeue();

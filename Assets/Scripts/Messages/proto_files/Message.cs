@@ -49,26 +49,32 @@ namespace messages {
     
     static Message() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
-          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyIoCgpHZW5NZXNzYWdlEgwKBHR5" + 
-          "cGUYASACKAkSDAoEZGF0YRgCIAIoDCIYCgVMb2dpbhIPCgdlcXVpcElkGAEg" + 
-          "AigJImIKC1BsYXllclN0YXRlEg0KBWluZGV4GAEgAigFEgkKAXgYAiACKAIS" + 
-          "CQoBeRgDIAIoAhISCgpjb2xvckluZGV4GAQgAigFEg0KBWxldmVsGAUgAigF" + 
-          "EgsKA2V4cBgGIAIoBSKIAQoKTG9naW5SZXBseRIUCgllcnJvckNvZGUYASAB" + 
-          "KAU6ATASJgoHbXlTdGF0ZRgCIAEoCzIVLm1lc3NhZ2VzLlBsYXllclN0YXRl" + 
-          "EiYKB3BsYXllcnMYAyADKAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZRIUCgl0" + 
-          "aW1lc3RhbXAYBCABKAM6ATAiTgoJU3RhcnRQYXRoEgoKAnN4GAEgAigCEgoK" + 
-          "AnN5GAIgAigCEgoKAmR4GAMgAigCEgoKAmR5GAQgAigCEhEKCXRpbWVzdGFt" + 
-          "cBgFIAIoAyJjCg9QbGF5ZXJTdGFydFBhdGgSDQoFaW5kZXgYASACKAUSCgoC" + 
-          "c3gYAiACKAISCgoCc3kYAyACKAISCgoCZHgYBCACKAISCgoCZHkYBSACKAIS" + 
-          "EQoJdGltZXN0YW1wGAYgAigDIk0KBk1vdmVUbxIJCgF4GAEgAigCEgkKAXkY" + 
-          "AiACKAISDAoEZGlyWBgDIAIoAhIMCgRkaXJZGAQgAigCEhEKCXRpbWVzdGFt" + 
-          "cBgFIAIoAyJiCgxQbGF5ZXJNb3ZlVG8SDQoFaW5kZXgYASACKAUSCQoBeBgC" + 
-          "IAIoAhIJCgF5GAMgAigCEgwKBGRpclgYBCACKAISDAoEZGlyWRgFIAIoAhIR" + 
-          "Cgl0aW1lc3RhbXAYBiACKAMiSwoLUGxheWVyTG9naW4SKQoKcGxheWVyRGF0" + 
-          "YRgBIAIoCzIVLm1lc3NhZ2VzLlBsYXllclN0YXRlEhEKCXRpbWVzdGFtcBgC" + 
-          "IAIoAyIbCgpQbGF5ZXJRdWl0Eg0KBWluZGV4GAEgAigFIkEKC0dlblJlcGx5" + 
-          "TXNnEgwKBHR5cGUYASACKAkSFgoHaXNSZXBseRgCIAEoCDoFZmFsc2USDAoE" + 
-          "ZGF0YRgDIAIoDA==");
+          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyI0CgpHZW5NZXNzYWdlEhIKBHR5" + 
+          "cGUYASACKAlSBHR5cGUSEgoEZGF0YRgCIAIoDFIEZGF0YSIhCgVMb2dpbhIY" + 
+          "CgdlcXVpcElkGAEgAigJUgdlcXVpcElkIocBCgtQbGF5ZXJTdGF0ZRIUCgVp" + 
+          "bmRleBgBIAIoBVIFaW5kZXgSDAoBeBgCIAIoAlIBeBIMCgF5GAMgAigCUgF5" + 
+          "Eh4KCmNvbG9ySW5kZXgYBCACKAVSCmNvbG9ySW5kZXgSFAoFbGV2ZWwYBSAC" + 
+          "KAVSBWxldmVsEhAKA2V4cBgGIAIoBVIDZXhwIrABCgpMb2dpblJlcGx5Eh8K" + 
+          "CWVycm9yQ29kZRgBIAEoBToBMFIJZXJyb3JDb2RlEi8KB215U3RhdGUYAiAB" + 
+          "KAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZVIHbXlTdGF0ZRIvCgdwbGF5ZXJz" + 
+          "GAMgAygLMhUubWVzc2FnZXMuUGxheWVyU3RhdGVSB3BsYXllcnMSHwoJdGlt" + 
+          "ZXN0YW1wGAQgASgDOgEwUgl0aW1lc3RhbXAiaQoJU3RhcnRQYXRoEg4KAnN4" + 
+          "GAEgAigCUgJzeBIOCgJzeRgCIAIoAlICc3kSDgoCZHgYAyACKAJSAmR4Eg4K" + 
+          "AmR5GAQgAigCUgJkeRIcCgl0aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCKF" + 
+          "AQoPUGxheWVyU3RhcnRQYXRoEhQKBWluZGV4GAEgAigFUgVpbmRleBIOCgJz" + 
+          "eBgCIAIoAlICc3gSDgoCc3kYAyACKAJSAnN5Eg4KAmR4GAQgAigCUgJkeBIO" + 
+          "CgJkeRgFIAIoAlICZHkSHAoJdGltZXN0YW1wGAYgAigDUgl0aW1lc3RhbXAi" + 
+          "agoGTW92ZVRvEgwKAXgYASACKAJSAXgSDAoBeRgCIAIoAlIBeRISCgRkaXJY" + 
+          "GAMgAigCUgRkaXJYEhIKBGRpclkYBCACKAJSBGRpclkSHAoJdGltZXN0YW1w" + 
+          "GAUgAigDUgl0aW1lc3RhbXAihgEKDFBsYXllck1vdmVUbxIUCgVpbmRleBgB" + 
+          "IAIoBVIFaW5kZXgSDAoBeBgCIAIoAlIBeBIMCgF5GAMgAigCUgF5EhIKBGRp" + 
+          "clgYBCACKAJSBGRpclgSEgoEZGlyWRgFIAIoAlIEZGlyWRIcCgl0aW1lc3Rh" + 
+          "bXAYBiACKANSCXRpbWVzdGFtcCJiCgtQbGF5ZXJMb2dpbhI1CgpwbGF5ZXJE" + 
+          "YXRhGAEgAigLMhUubWVzc2FnZXMuUGxheWVyU3RhdGVSCnBsYXllckRhdGES" + 
+          "HAoJdGltZXN0YW1wGAIgAigDUgl0aW1lc3RhbXAiIgoKUGxheWVyUXVpdBIU" + 
+          "CgVpbmRleBgBIAIoBVIFaW5kZXgiVgoLR2VuUmVwbHlNc2cSEgoEdHlwZRgB" + 
+          "IAIoCVIEdHlwZRIfCgdpc1JlcGx5GAIgASgIOgVmYWxzZVIHaXNSZXBseRIS" + 
+          "CgRkYXRhGAMgAigMUgRkYXRh");
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_messages_GenMessage__Descriptor = Descriptor.MessageTypes[0];
@@ -115,7 +121,9 @@ namespace messages {
         internal__static_messages_GenReplyMsg__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.GenReplyMsg, global::messages.GenReplyMsg.Builder>(internal__static_messages_GenReplyMsg__Descriptor,
                 new string[] { "Type", "IsReply", "Data", });
-        return null;
+        pb::ExtensionRegistry registry = pb::ExtensionRegistry.CreateInstance();
+        RegisterAllExtensions(registry);
+        return registry;
       };
       pbd::FileDescriptor.InternalBuildGeneratedFileFrom(descriptorData,
           new pbd::FileDescriptor[] {
