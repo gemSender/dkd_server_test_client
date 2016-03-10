@@ -94,13 +94,13 @@ public class ConnectionHandler : MonoBehaviour
             action(msg.Data);
         }
     }
-    public void Connect() {
+    public void Connect(System.Action callback = null) {
         if (socket != null)
             socket.Dispose();
-        StartCoroutine(StartConnect());
+        StartCoroutine(StartConnect(callback));
     }
 
-    IEnumerator StartConnect()
+    IEnumerator StartConnect(System.Action callback = null)
     {
         socket = new GameSocket(host, port);
         socket.onReceiveMessage = this.OnReceiveMsg;
@@ -110,6 +110,7 @@ public class ConnectionHandler : MonoBehaviour
         while(!socket.Connected){
             yield return null;
         }
+        callback();
         StartCoroutine(socket.Dispatcher());
     }
 

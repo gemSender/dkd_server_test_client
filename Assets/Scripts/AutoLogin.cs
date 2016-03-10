@@ -8,20 +8,28 @@ public class AutoLogin : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
         yield return null;
-        ConnectionHandler.Instance.Connect();
+        //ConnectionHandler.Instance.Connect();
         while (!ConnectionHandler.Instance.Connectd) {
             yield return null;
         }
-        var id = System.Guid.NewGuid().ToString("N");
+        var equipId = SystemInfo.deviceUniqueIdentifier;
         float time1 = Time.realtimeSinceStartup;
-        ConnectionHandler.Instance.SendUnpackedMessage<LoginReply>(Login.CreateBuilder().SetId(id).Build(),
+        ConnectionHandler.Instance.SendUnpackedMessage<LoginReply>(Login.CreateBuilder().SetEquipId(equipId).Build(),
             LoginReply.ParseFrom,
             (reply) => {
-                float time2 = Time.realtimeSinceStartup;
-                ConnectionHandler.Instance.SetLoginTime(reply.Timestamp, (time2 - time1) / 2);
-                Player.Create(id, reply.X, reply.Y, true, reply.ColorIndex, reply.Timestamp);
-                foreach (var item in reply.PlayersList) {
-                    Player.Create(item.Id, item.X, item.Y, false, item.ColorIndex, reply.Timestamp);
+                if (reply.ErrorCode == 0)
+                {
+                    float time2 = Time.realtimeSinceStartup;
+                    ConnectionHandler.Instance.SetLoginTime(reply.Timestamp, (time2 - time1) / 2);
+                    var myState = reply.MyState;
+                    Player.Create(myState.Index, myState.X, myState.Y, true, myState.ColorIndex, reply.Timestamp);
+                    foreach (var item in reply.PlayersList)
+                    {
+                        Player.Create(item.Index, item.X, item.Y, false, item.ColorIndex, reply.Timestamp);
+                    }
+                }
+                else { 
+                
                 }
             });
 	}

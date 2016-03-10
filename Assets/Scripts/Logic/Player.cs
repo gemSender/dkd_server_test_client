@@ -4,9 +4,9 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour {
     private long lastSyncPosTime;
     public float Speed;
-    static Dictionary<string, Player> playerDict = new Dictionary<string, Player>();
+    static Dictionary<int, Player> playerDict = new Dictionary<int, Player>();
     private NavMeshAgent agent;
-    public string Id
+    public int Index
     {
         get;
         set;
@@ -25,14 +25,14 @@ public class Player : MonoBehaviour {
     State state;
 	// Use this for initialization
 
-    public static Player Create(string id, float x, float z, bool isMine, int colorIndex, long timestamp) {
+    public static Player Create(int index, float x, float z, bool isMine, int colorIndex, long timestamp) {
         var go = Instantiate(Resources.Load("Player")) as GameObject;
         var goTrans = go.transform;
         goTrans.localPosition = new Vector3(x, 0.5f, z);
         var player = goTrans.GetComponent<Player>();
-        player.Id = id;
+        player.Index = index;
         player.IsMine = isMine;
-        playerDict[id] = player;
+        playerDict[index] = player;
         player.lastSyncPosTime = timestamp;
         player.GetComponent<Renderer>().material.color = PlayerColorManager.Instance.GetColor(colorIndex);
         return player;
@@ -42,19 +42,19 @@ public class Player : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
 	}
 
-    public static Player GetPlayer(string id) {
+    public static Player GetPlayer(int index) {
         try
         {
-            return playerDict[id];
+            return playerDict[index];
         }
         catch (System.Exception e){
-            Debug.Log("key not found: " + id);
+            Debug.Log("key not found: " + index);
             throw e;
         }
     }
-    public static void RemovePlayer(string id){
-        var player = playerDict[id];
-        playerDict.Remove(id);
+    public static void RemovePlayer(int index){
+        var player = playerDict[index];
+        playerDict.Remove(index);
         Destroy(player.gameObject);
     }
 	
@@ -117,7 +117,7 @@ public class Player : MonoBehaviour {
 
     void OnGUI() {
         if (IsMine) {
-            GUILayout.Button(this.Id);
+            GUILayout.Button(this.Index.ToString());
             GUILayout.Button(agent.nextPosition.ToString());
         }
     }

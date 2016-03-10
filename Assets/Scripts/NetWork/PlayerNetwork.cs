@@ -11,15 +11,15 @@ public class PlayerNetwork : GenNetwork<PlayerNetwork> {
     }
 
     void OnPlayerMoveTo(messages.PlayerMoveTo msg) {
-        var player = Player.GetPlayer(msg.Id);
+        var player = Player.GetPlayer(msg.Index);
         player.MoveTo(msg.X, msg.Y, msg.DirX, msg.DirY, msg.Timestamp);
     }
 
     void OnPlayerQuit(messages.PlayerQuit msg) {
-        Player.RemovePlayer(msg.Id);
+        Player.RemovePlayer(msg.Index);
     }
 
     void OnPlayerStartPath(messages.PlayerStartPath msg) {
-        Player.GetPlayer(msg.Id).StartPath(msg.Sx, msg.Sy, msg.Dx, msg.Dy, msg.Timestamp);
+        Player.GetPlayer(msg.Index).StartPath(msg.Sx, msg.Sy, msg.Dx, msg.Dy, msg.Timestamp);
     }
 }

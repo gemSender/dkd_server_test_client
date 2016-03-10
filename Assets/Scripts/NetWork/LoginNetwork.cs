@@ -10,6 +10,7 @@ public class LoginNetwork : GenNetwork<LoginNetwork>
     }
 
     void OtherPlayerLoginCallback(messages.PlayerLogin msg) {
-        Player.Create(msg.Id, msg.X, msg.Y, false, msg.ColorIndex, msg.Timestamp);
+        var playerState = msg.PlayerData;
+        Player.Create(playerState.Index, playerState.X, playerState.Y, false, playerState.ColorIndex, msg.Timestamp);
     }
 }
