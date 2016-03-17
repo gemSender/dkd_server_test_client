@@ -21,4 +21,16 @@ public class SelectServerPanel : MonoBehaviour {
     public void Hide() {
         Destroy(gameObject);
     }
+
+    public void ShowNavMesh()
+    {
+        var trianInfo = NavMesh.CalculateTriangulation();
+        GameObject go = new GameObject("navmesh", typeof(MeshFilter), typeof(MeshRenderer));
+        var mf = go.GetComponent<MeshFilter>();
+        mf.mesh = new Mesh();
+        mf.mesh.vertices = trianInfo.vertices;
+        mf.mesh.triangles = trianInfo.indices;
+        mf.mesh.RecalculateNormals();
+        Debug.Log("verticesCount: " + mf.mesh.vertexCount);
+    }
 }
