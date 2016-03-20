@@ -69,8 +69,18 @@ public class Player : MonoBehaviour {
                     agent.SetDestination(hitPos);
                     state = State.Moving;
                     var currentPos = transform.localPosition;
+                    currentPos.y = 0;
                     ConnectionHandler.Instance.SendUnpackedMessage(messages.StartPath.CreateBuilder()
                         .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build());
+                    int startTri = NavmeshUtility.GetTriangleIndex(new Vector2(currentPos.x, currentPos.z));
+                    int endTri = NavmeshUtility.GetTriangleIndex(new Vector2(hitPos.x, hitPos.z));
+                    Debug.LogFormat("startTriIndex: {0}, endTriIndex: {1}", startTri, endTri);
+                    NavMeshPath nvp = new NavMeshPath();
+                    NavMesh.CalculatePath(currentPos, hitPos, int.MaxValue, nvp);
+                    Debug.Log("path:");
+                    foreach (var c in nvp.corners) {
+                        Debug.LogFormat("({0}, {1})", c.x, c.z);
+                    }
                 }
             }
             var now = ConnectionHandler.Instance.CurrentTimeMS;
@@ -97,7 +107,6 @@ public class Player : MonoBehaviour {
         currentPos.x = x;
         currentPos.z = y;
         transform.localPosition = currentPos;
-        Debug.Log(agent.velocity);
         currentPos += agent.velocity * ((ConnectionHandler.Instance.CurrentTimeMS - timestamp) / 1000.0f);
         transform.forward = new Vector3(xDir, 0 , yDir);
     }
