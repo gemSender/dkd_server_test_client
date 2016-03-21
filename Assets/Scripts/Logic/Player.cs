@@ -6,6 +6,8 @@ public class Player : MonoBehaviour {
     public float Speed;
     static Dictionary<int, Player> playerDict = new Dictionary<int, Player>();
     private NavMeshAgent agent;
+    public messages.StartPathReply serverPath;
+    public Vector3[] clientPath;
     public int Index
     {
         get;
@@ -70,17 +72,22 @@ public class Player : MonoBehaviour {
                     state = State.Moving;
                     var currentPos = transform.localPosition;
                     currentPos.y = 0;
-                    ConnectionHandler.Instance.SendUnpackedMessage(messages.StartPath.CreateBuilder()
-                        .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build());
+                    ConnectionHandler.Instance.SendUnpackedMessage<messages.StartPathReply>(messages.StartPath.CreateBuilder()
+                        .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build(), 
+                        messages.StartPathReply.ParseFrom, 
+                        (reply) => {
+                            this.serverPath = reply;
+                            foreach(var vert in reply.VerticesList){
+                                Debug.LogFormat("server vert: ({0}, {1})", vert.X, vert.Y);
+                            }
+                        });
                     int startTri = NavmeshUtility.GetTriangleIndex(new Vector2(currentPos.x, currentPos.z));
                     int endTri = NavmeshUtility.GetTriangleIndex(new Vector2(hitPos.x, hitPos.z));
                     Debug.LogFormat("startTriIndex: {0}, endTriIndex: {1}", startTri, endTri);
                     NavMeshPath nvp = new NavMeshPath();
                     NavMesh.CalculatePath(currentPos, hitPos, int.MaxValue, nvp);
                     Debug.Log("path:");
-                    foreach (var c in nvp.corners) {
-                        Debug.LogFormat("({0}, {1})", c.x, c.z);
-                    }
+                    clientPath = nvp.corners;
                 }
             }
             var now = ConnectionHandler.Instance.CurrentTimeMS;
@@ -99,6 +106,23 @@ public class Player : MonoBehaviour {
                 break;
             case State.Moving:
                 break;
+        }
+        if (this.serverPath != null)
+        {
+            for (int i = 1, imax = this.serverPath.VerticesCount; i < imax; i++)
+            {
+                var p1 = this.serverPath.GetVertices(i - 1);
+                var p2 = this.serverPath.GetVertices(i);
+                Debug.DrawLine(new Vector3(p1.X, 0, p1.Y), new Vector3(p2.X, 0, p2.Y), Color.blue, 0, false);
+            }
+        }
+        if (clientPath != null)
+        {
+            for (int i = 1; i < clientPath.Length; i++) {
+                var p1 = clientPath[i - 1];
+                var p2 = clientPath[i];
+                Debug.DrawLine(p1, p2, Color.green);
+            }
         }
 	}
 
@@ -130,6 +154,9 @@ public class Player : MonoBehaviour {
         if (IsMine) {
             GUILayout.Button(this.Index.ToString());
             GUILayout.Button(agent.nextPosition.ToString());
+            if (serverPath != null) {
+                GUILayout.Button("path vertice count: " + serverPath.VerticesCount);
+            }
         }
     }
 }

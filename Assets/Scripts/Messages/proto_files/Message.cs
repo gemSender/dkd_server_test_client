@@ -28,6 +28,10 @@ namespace messages {
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.LoginReply, global::messages.LoginReply.Builder> internal__static_messages_LoginReply__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_StartPath__Descriptor;
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.StartPath, global::messages.StartPath.Builder> internal__static_messages_StartPath__FieldAccessorTable;
+    internal static pbd::MessageDescriptor internal__static_messages_Vec2__Descriptor;
+    internal static pb::FieldAccess.FieldAccessorTable<global::messages.Vec2, global::messages.Vec2.Builder> internal__static_messages_Vec2__FieldAccessorTable;
+    internal static pbd::MessageDescriptor internal__static_messages_StartPathReply__Descriptor;
+    internal static pb::FieldAccess.FieldAccessorTable<global::messages.StartPathReply, global::messages.StartPathReply.Builder> internal__static_messages_StartPathReply__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_PlayerStartPath__Descriptor;
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.PlayerStartPath, global::messages.PlayerStartPath.Builder> internal__static_messages_PlayerStartPath__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_MoveTo__Descriptor;
@@ -60,21 +64,23 @@ namespace messages {
           "GAMgAygLMhUubWVzc2FnZXMuUGxheWVyU3RhdGVSB3BsYXllcnMSHwoJdGlt" + 
           "ZXN0YW1wGAQgASgDOgEwUgl0aW1lc3RhbXAiaQoJU3RhcnRQYXRoEg4KAnN4" + 
           "GAEgAigCUgJzeBIOCgJzeRgCIAIoAlICc3kSDgoCZHgYAyACKAJSAmR4Eg4K" + 
-          "AmR5GAQgAigCUgJkeRIcCgl0aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCKF" + 
-          "AQoPUGxheWVyU3RhcnRQYXRoEhQKBWluZGV4GAEgAigFUgVpbmRleBIOCgJz" + 
-          "eBgCIAIoAlICc3gSDgoCc3kYAyACKAJSAnN5Eg4KAmR4GAQgAigCUgJkeBIO" + 
-          "CgJkeRgFIAIoAlICZHkSHAoJdGltZXN0YW1wGAYgAigDUgl0aW1lc3RhbXAi" + 
-          "agoGTW92ZVRvEgwKAXgYASACKAJSAXgSDAoBeRgCIAIoAlIBeRISCgRkaXJY" + 
-          "GAMgAigCUgRkaXJYEhIKBGRpclkYBCACKAJSBGRpclkSHAoJdGltZXN0YW1w" + 
-          "GAUgAigDUgl0aW1lc3RhbXAihgEKDFBsYXllck1vdmVUbxIUCgVpbmRleBgB" + 
-          "IAIoBVIFaW5kZXgSDAoBeBgCIAIoAlIBeBIMCgF5GAMgAigCUgF5EhIKBGRp" + 
-          "clgYBCACKAJSBGRpclgSEgoEZGlyWRgFIAIoAlIEZGlyWRIcCgl0aW1lc3Rh" + 
-          "bXAYBiACKANSCXRpbWVzdGFtcCJiCgtQbGF5ZXJMb2dpbhI1CgpwbGF5ZXJE" + 
-          "YXRhGAEgAigLMhUubWVzc2FnZXMuUGxheWVyU3RhdGVSCnBsYXllckRhdGES" + 
-          "HAoJdGltZXN0YW1wGAIgAigDUgl0aW1lc3RhbXAiIgoKUGxheWVyUXVpdBIU" + 
-          "CgVpbmRleBgBIAIoBVIFaW5kZXgiVgoLR2VuUmVwbHlNc2cSEgoEdHlwZRgB" + 
-          "IAIoCVIEdHlwZRIfCgdpc1JlcGx5GAIgASgIOgVmYWxzZVIHaXNSZXBseRIS" + 
-          "CgRkYXRhGAMgAigMUgRkYXRh");
+          "AmR5GAQgAigCUgJkeRIcCgl0aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCIi" + 
+          "CgRWZWMyEgwKAXgYASACKAJSAXgSDAoBeRgCIAIoAlIBeSI8Cg5TdGFydFBh" + 
+          "dGhSZXBseRIqCgh2ZXJ0aWNlcxgBIAMoCzIOLm1lc3NhZ2VzLlZlYzJSCHZl" + 
+          "cnRpY2VzIoUBCg9QbGF5ZXJTdGFydFBhdGgSFAoFaW5kZXgYASACKAVSBWlu" + 
+          "ZGV4Eg4KAnN4GAIgAigCUgJzeBIOCgJzeRgDIAIoAlICc3kSDgoCZHgYBCAC" + 
+          "KAJSAmR4Eg4KAmR5GAUgAigCUgJkeRIcCgl0aW1lc3RhbXAYBiACKANSCXRp" + 
+          "bWVzdGFtcCJqCgZNb3ZlVG8SDAoBeBgBIAIoAlIBeBIMCgF5GAIgAigCUgF5" + 
+          "EhIKBGRpclgYAyACKAJSBGRpclgSEgoEZGlyWRgEIAIoAlIEZGlyWRIcCgl0" + 
+          "aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCKGAQoMUGxheWVyTW92ZVRvEhQK" + 
+          "BWluZGV4GAEgAigFUgVpbmRleBIMCgF4GAIgAigCUgF4EgwKAXkYAyACKAJS" + 
+          "AXkSEgoEZGlyWBgEIAIoAlIEZGlyWBISCgRkaXJZGAUgAigCUgRkaXJZEhwK" + 
+          "CXRpbWVzdGFtcBgGIAIoA1IJdGltZXN0YW1wImIKC1BsYXllckxvZ2luEjUK" + 
+          "CnBsYXllckRhdGEYASACKAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZVIKcGxh" + 
+          "eWVyRGF0YRIcCgl0aW1lc3RhbXAYAiACKANSCXRpbWVzdGFtcCIiCgpQbGF5" + 
+          "ZXJRdWl0EhQKBWluZGV4GAEgAigFUgVpbmRleCJWCgtHZW5SZXBseU1zZxIS" + 
+          "CgR0eXBlGAEgAigJUgR0eXBlEh8KB2lzUmVwbHkYAiABKAg6BWZhbHNlUgdp" + 
+          "c1JlcGx5EhIKBGRhdGEYAyACKAxSBGRhdGE=");
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_messages_GenMessage__Descriptor = Descriptor.MessageTypes[0];
@@ -97,27 +103,35 @@ namespace messages {
         internal__static_messages_StartPath__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.StartPath, global::messages.StartPath.Builder>(internal__static_messages_StartPath__Descriptor,
                 new string[] { "Sx", "Sy", "Dx", "Dy", "Timestamp", });
-        internal__static_messages_PlayerStartPath__Descriptor = Descriptor.MessageTypes[5];
+        internal__static_messages_Vec2__Descriptor = Descriptor.MessageTypes[5];
+        internal__static_messages_Vec2__FieldAccessorTable = 
+            new pb::FieldAccess.FieldAccessorTable<global::messages.Vec2, global::messages.Vec2.Builder>(internal__static_messages_Vec2__Descriptor,
+                new string[] { "X", "Y", });
+        internal__static_messages_StartPathReply__Descriptor = Descriptor.MessageTypes[6];
+        internal__static_messages_StartPathReply__FieldAccessorTable = 
+            new pb::FieldAccess.FieldAccessorTable<global::messages.StartPathReply, global::messages.StartPathReply.Builder>(internal__static_messages_StartPathReply__Descriptor,
+                new string[] { "Vertices", });
+        internal__static_messages_PlayerStartPath__Descriptor = Descriptor.MessageTypes[7];
         internal__static_messages_PlayerStartPath__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerStartPath, global::messages.PlayerStartPath.Builder>(internal__static_messages_PlayerStartPath__Descriptor,
                 new string[] { "Index", "Sx", "Sy", "Dx", "Dy", "Timestamp", });
-        internal__static_messages_MoveTo__Descriptor = Descriptor.MessageTypes[6];
+        internal__static_messages_MoveTo__Descriptor = Descriptor.MessageTypes[8];
         internal__static_messages_MoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.MoveTo, global::messages.MoveTo.Builder>(internal__static_messages_MoveTo__Descriptor,
                 new string[] { "X", "Y", "DirX", "DirY", "Timestamp", });
-        internal__static_messages_PlayerMoveTo__Descriptor = Descriptor.MessageTypes[7];
+        internal__static_messages_PlayerMoveTo__Descriptor = Descriptor.MessageTypes[9];
         internal__static_messages_PlayerMoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerMoveTo, global::messages.PlayerMoveTo.Builder>(internal__static_messages_PlayerMoveTo__Descriptor,
                 new string[] { "Index", "X", "Y", "DirX", "DirY", "Timestamp", });
-        internal__static_messages_PlayerLogin__Descriptor = Descriptor.MessageTypes[8];
+        internal__static_messages_PlayerLogin__Descriptor = Descriptor.MessageTypes[10];
         internal__static_messages_PlayerLogin__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerLogin, global::messages.PlayerLogin.Builder>(internal__static_messages_PlayerLogin__Descriptor,
                 new string[] { "PlayerData", "Timestamp", });
-        internal__static_messages_PlayerQuit__Descriptor = Descriptor.MessageTypes[9];
+        internal__static_messages_PlayerQuit__Descriptor = Descriptor.MessageTypes[11];
         internal__static_messages_PlayerQuit__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerQuit, global::messages.PlayerQuit.Builder>(internal__static_messages_PlayerQuit__Descriptor,
                 new string[] { "Index", });
-        internal__static_messages_GenReplyMsg__Descriptor = Descriptor.MessageTypes[10];
+        internal__static_messages_GenReplyMsg__Descriptor = Descriptor.MessageTypes[12];
         internal__static_messages_GenReplyMsg__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.GenReplyMsg, global::messages.GenReplyMsg.Builder>(internal__static_messages_GenReplyMsg__Descriptor,
                 new string[] { "Type", "IsReply", "Data", });
@@ -2133,6 +2147,629 @@ namespace messages {
       }
     }
     static StartPath() {
+      object.ReferenceEquals(global::messages.Message.Descriptor, null);
+    }
+  }
+  
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+  [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+  public sealed partial class Vec2 : pb::GeneratedMessage<Vec2, Vec2.Builder> {
+    private Vec2() { }
+    private static readonly Vec2 defaultInstance = new Vec2().MakeReadOnly();
+    private static readonly string[] _vec2FieldNames = new string[] { "x", "y" };
+    private static readonly uint[] _vec2FieldTags = new uint[] { 13, 21 };
+    public static Vec2 DefaultInstance {
+      get { return defaultInstance; }
+    }
+    
+    public override Vec2 DefaultInstanceForType {
+      get { return DefaultInstance; }
+    }
+    
+    protected override Vec2 ThisMessage {
+      get { return this; }
+    }
+    
+    public static pbd::MessageDescriptor Descriptor {
+      get { return global::messages.Message.internal__static_messages_Vec2__Descriptor; }
+    }
+    
+    protected override pb::FieldAccess.FieldAccessorTable<Vec2, Vec2.Builder> InternalFieldAccessors {
+      get { return global::messages.Message.internal__static_messages_Vec2__FieldAccessorTable; }
+    }
+    
+    public const int XFieldNumber = 1;
+    private bool hasX;
+    private float x_;
+    public bool HasX {
+      get { return hasX; }
+    }
+    public float X {
+      get { return x_; }
+    }
+    
+    public const int YFieldNumber = 2;
+    private bool hasY;
+    private float y_;
+    public bool HasY {
+      get { return hasY; }
+    }
+    public float Y {
+      get { return y_; }
+    }
+    
+    public override bool IsInitialized {
+      get {
+        if (!hasX) return false;
+        if (!hasY) return false;
+        return true;
+      }
+    }
+    
+    public override void WriteTo(pb::ICodedOutputStream output) {
+      int size = SerializedSize;
+      string[] field_names = _vec2FieldNames;
+      if (hasX) {
+        output.WriteFloat(1, field_names[0], X);
+      }
+      if (hasY) {
+        output.WriteFloat(2, field_names[1], Y);
+      }
+      UnknownFields.WriteTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public override int SerializedSize {
+      get {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+        
+        size = 0;
+        if (hasX) {
+          size += pb::CodedOutputStream.ComputeFloatSize(1, X);
+        }
+        if (hasY) {
+          size += pb::CodedOutputStream.ComputeFloatSize(2, Y);
+        }
+        size += UnknownFields.SerializedSize;
+        memoizedSerializedSize = size;
+        return size;
+      }
+    }
+    
+    public static Vec2 ParseFrom(pb::ByteString data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(byte[] data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(global::System.IO.Stream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    public static Vec2 ParseDelimitedFrom(global::System.IO.Stream input) {
+      return CreateBuilder().MergeDelimitedFrom(input).BuildParsed();
+    }
+    public static Vec2 ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return CreateBuilder().MergeDelimitedFrom(input, extensionRegistry).BuildParsed();
+    }
+    public static Vec2 ParseFrom(pb::ICodedInputStream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static Vec2 ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    private Vec2 MakeReadOnly() {
+      return this;
+    }
+    
+    public static Builder CreateBuilder() { return new Builder(); }
+    public override Builder ToBuilder() { return CreateBuilder(this); }
+    public override Builder CreateBuilderForType() { return new Builder(); }
+    public static Builder CreateBuilder(Vec2 prototype) {
+      return new Builder(prototype);
+    }
+    
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+    public sealed partial class Builder : pb::GeneratedBuilder<Vec2, Builder> {
+      protected override Builder ThisBuilder {
+        get { return this; }
+      }
+      public Builder() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+      }
+      internal Builder(Vec2 cloneFrom) {
+        result = cloneFrom;
+        resultIsReadOnly = true;
+      }
+      
+      private bool resultIsReadOnly;
+      private Vec2 result;
+      
+      private Vec2 PrepareBuilder() {
+        if (resultIsReadOnly) {
+          Vec2 original = result;
+          result = new Vec2();
+          resultIsReadOnly = false;
+          MergeFrom(original);
+        }
+        return result;
+      }
+      
+      public override bool IsInitialized {
+        get { return result.IsInitialized; }
+      }
+      
+      protected override Vec2 MessageBeingBuilt {
+        get { return PrepareBuilder(); }
+      }
+      
+      public override Builder Clear() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+        return this;
+      }
+      
+      public override Builder Clone() {
+        if (resultIsReadOnly) {
+          return new Builder(result);
+        } else {
+          return new Builder().MergeFrom(result);
+        }
+      }
+      
+      public override pbd::MessageDescriptor DescriptorForType {
+        get { return global::messages.Vec2.Descriptor; }
+      }
+      
+      public override Vec2 DefaultInstanceForType {
+        get { return global::messages.Vec2.DefaultInstance; }
+      }
+      
+      public override Vec2 BuildPartial() {
+        if (resultIsReadOnly) {
+          return result;
+        }
+        resultIsReadOnly = true;
+        return result.MakeReadOnly();
+      }
+      
+      public override Builder MergeFrom(pb::IMessage other) {
+        if (other is Vec2) {
+          return MergeFrom((Vec2) other);
+        } else {
+          base.MergeFrom(other);
+          return this;
+        }
+      }
+      
+      public override Builder MergeFrom(Vec2 other) {
+        if (other == global::messages.Vec2.DefaultInstance) return this;
+        PrepareBuilder();
+        if (other.HasX) {
+          X = other.X;
+        }
+        if (other.HasY) {
+          Y = other.Y;
+        }
+        this.MergeUnknownFields(other.UnknownFields);
+        return this;
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input) {
+        return MergeFrom(input, pb::ExtensionRegistry.Empty);
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+        PrepareBuilder();
+        pb::UnknownFieldSet.Builder unknownFields = null;
+        uint tag;
+        string field_name;
+        while (input.ReadTag(out tag, out field_name)) {
+          if(tag == 0 && field_name != null) {
+            int field_ordinal = global::System.Array.BinarySearch(_vec2FieldNames, field_name, global::System.StringComparer.Ordinal);
+            if(field_ordinal >= 0)
+              tag = _vec2FieldTags[field_ordinal];
+            else {
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              continue;
+            }
+          }
+          switch (tag) {
+            case 0: {
+              throw pb::InvalidProtocolBufferException.InvalidTag();
+            }
+            default: {
+              if (pb::WireFormat.IsEndGroupTag(tag)) {
+                if (unknownFields != null) {
+                  this.UnknownFields = unknownFields.Build();
+                }
+                return this;
+              }
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              break;
+            }
+            case 13: {
+              result.hasX = input.ReadFloat(ref result.x_);
+              break;
+            }
+            case 21: {
+              result.hasY = input.ReadFloat(ref result.y_);
+              break;
+            }
+          }
+        }
+        
+        if (unknownFields != null) {
+          this.UnknownFields = unknownFields.Build();
+        }
+        return this;
+      }
+      
+      
+      public bool HasX {
+        get { return result.hasX; }
+      }
+      public float X {
+        get { return result.X; }
+        set { SetX(value); }
+      }
+      public Builder SetX(float value) {
+        PrepareBuilder();
+        result.hasX = true;
+        result.x_ = value;
+        return this;
+      }
+      public Builder ClearX() {
+        PrepareBuilder();
+        result.hasX = false;
+        result.x_ = 0F;
+        return this;
+      }
+      
+      public bool HasY {
+        get { return result.hasY; }
+      }
+      public float Y {
+        get { return result.Y; }
+        set { SetY(value); }
+      }
+      public Builder SetY(float value) {
+        PrepareBuilder();
+        result.hasY = true;
+        result.y_ = value;
+        return this;
+      }
+      public Builder ClearY() {
+        PrepareBuilder();
+        result.hasY = false;
+        result.y_ = 0F;
+        return this;
+      }
+    }
+    static Vec2() {
+      object.ReferenceEquals(global::messages.Message.Descriptor, null);
+    }
+  }
+  
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+  [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+  public sealed partial class StartPathReply : pb::GeneratedMessage<StartPathReply, StartPathReply.Builder> {
+    private StartPathReply() { }
+    private static readonly StartPathReply defaultInstance = new StartPathReply().MakeReadOnly();
+    private static readonly string[] _startPathReplyFieldNames = new string[] { "vertices" };
+    private static readonly uint[] _startPathReplyFieldTags = new uint[] { 10 };
+    public static StartPathReply DefaultInstance {
+      get { return defaultInstance; }
+    }
+    
+    public override StartPathReply DefaultInstanceForType {
+      get { return DefaultInstance; }
+    }
+    
+    protected override StartPathReply ThisMessage {
+      get { return this; }
+    }
+    
+    public static pbd::MessageDescriptor Descriptor {
+      get { return global::messages.Message.internal__static_messages_StartPathReply__Descriptor; }
+    }
+    
+    protected override pb::FieldAccess.FieldAccessorTable<StartPathReply, StartPathReply.Builder> InternalFieldAccessors {
+      get { return global::messages.Message.internal__static_messages_StartPathReply__FieldAccessorTable; }
+    }
+    
+    public const int VerticesFieldNumber = 1;
+    private pbc::PopsicleList<global::messages.Vec2> vertices_ = new pbc::PopsicleList<global::messages.Vec2>();
+    public scg::IList<global::messages.Vec2> VerticesList {
+      get { return vertices_; }
+    }
+    public int VerticesCount {
+      get { return vertices_.Count; }
+    }
+    public global::messages.Vec2 GetVertices(int index) {
+      return vertices_[index];
+    }
+    
+    public override bool IsInitialized {
+      get {
+        foreach (global::messages.Vec2 element in VerticesList) {
+          if (!element.IsInitialized) return false;
+        }
+        return true;
+      }
+    }
+    
+    public override void WriteTo(pb::ICodedOutputStream output) {
+      int size = SerializedSize;
+      string[] field_names = _startPathReplyFieldNames;
+      if (vertices_.Count > 0) {
+        output.WriteMessageArray(1, field_names[0], vertices_);
+      }
+      UnknownFields.WriteTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public override int SerializedSize {
+      get {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+        
+        size = 0;
+        foreach (global::messages.Vec2 element in VerticesList) {
+          size += pb::CodedOutputStream.ComputeMessageSize(1, element);
+        }
+        size += UnknownFields.SerializedSize;
+        memoizedSerializedSize = size;
+        return size;
+      }
+    }
+    
+    public static StartPathReply ParseFrom(pb::ByteString data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(byte[] data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(global::System.IO.Stream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    public static StartPathReply ParseDelimitedFrom(global::System.IO.Stream input) {
+      return CreateBuilder().MergeDelimitedFrom(input).BuildParsed();
+    }
+    public static StartPathReply ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return CreateBuilder().MergeDelimitedFrom(input, extensionRegistry).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(pb::ICodedInputStream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static StartPathReply ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    private StartPathReply MakeReadOnly() {
+      vertices_.MakeReadOnly();
+      return this;
+    }
+    
+    public static Builder CreateBuilder() { return new Builder(); }
+    public override Builder ToBuilder() { return CreateBuilder(this); }
+    public override Builder CreateBuilderForType() { return new Builder(); }
+    public static Builder CreateBuilder(StartPathReply prototype) {
+      return new Builder(prototype);
+    }
+    
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+    public sealed partial class Builder : pb::GeneratedBuilder<StartPathReply, Builder> {
+      protected override Builder ThisBuilder {
+        get { return this; }
+      }
+      public Builder() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+      }
+      internal Builder(StartPathReply cloneFrom) {
+        result = cloneFrom;
+        resultIsReadOnly = true;
+      }
+      
+      private bool resultIsReadOnly;
+      private StartPathReply result;
+      
+      private StartPathReply PrepareBuilder() {
+        if (resultIsReadOnly) {
+          StartPathReply original = result;
+          result = new StartPathReply();
+          resultIsReadOnly = false;
+          MergeFrom(original);
+        }
+        return result;
+      }
+      
+      public override bool IsInitialized {
+        get { return result.IsInitialized; }
+      }
+      
+      protected override StartPathReply MessageBeingBuilt {
+        get { return PrepareBuilder(); }
+      }
+      
+      public override Builder Clear() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+        return this;
+      }
+      
+      public override Builder Clone() {
+        if (resultIsReadOnly) {
+          return new Builder(result);
+        } else {
+          return new Builder().MergeFrom(result);
+        }
+      }
+      
+      public override pbd::MessageDescriptor DescriptorForType {
+        get { return global::messages.StartPathReply.Descriptor; }
+      }
+      
+      public override StartPathReply DefaultInstanceForType {
+        get { return global::messages.StartPathReply.DefaultInstance; }
+      }
+      
+      public override StartPathReply BuildPartial() {
+        if (resultIsReadOnly) {
+          return result;
+        }
+        resultIsReadOnly = true;
+        return result.MakeReadOnly();
+      }
+      
+      public override Builder MergeFrom(pb::IMessage other) {
+        if (other is StartPathReply) {
+          return MergeFrom((StartPathReply) other);
+        } else {
+          base.MergeFrom(other);
+          return this;
+        }
+      }
+      
+      public override Builder MergeFrom(StartPathReply other) {
+        if (other == global::messages.StartPathReply.DefaultInstance) return this;
+        PrepareBuilder();
+        if (other.vertices_.Count != 0) {
+          result.vertices_.Add(other.vertices_);
+        }
+        this.MergeUnknownFields(other.UnknownFields);
+        return this;
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input) {
+        return MergeFrom(input, pb::ExtensionRegistry.Empty);
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+        PrepareBuilder();
+        pb::UnknownFieldSet.Builder unknownFields = null;
+        uint tag;
+        string field_name;
+        while (input.ReadTag(out tag, out field_name)) {
+          if(tag == 0 && field_name != null) {
+            int field_ordinal = global::System.Array.BinarySearch(_startPathReplyFieldNames, field_name, global::System.StringComparer.Ordinal);
+            if(field_ordinal >= 0)
+              tag = _startPathReplyFieldTags[field_ordinal];
+            else {
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              continue;
+            }
+          }
+          switch (tag) {
+            case 0: {
+              throw pb::InvalidProtocolBufferException.InvalidTag();
+            }
+            default: {
+              if (pb::WireFormat.IsEndGroupTag(tag)) {
+                if (unknownFields != null) {
+                  this.UnknownFields = unknownFields.Build();
+                }
+                return this;
+              }
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              break;
+            }
+            case 10: {
+              input.ReadMessageArray(tag, field_name, result.vertices_, global::messages.Vec2.DefaultInstance, extensionRegistry);
+              break;
+            }
+          }
+        }
+        
+        if (unknownFields != null) {
+          this.UnknownFields = unknownFields.Build();
+        }
+        return this;
+      }
+      
+      
+      public pbc::IPopsicleList<global::messages.Vec2> VerticesList {
+        get { return PrepareBuilder().vertices_; }
+      }
+      public int VerticesCount {
+        get { return result.VerticesCount; }
+      }
+      public global::messages.Vec2 GetVertices(int index) {
+        return result.GetVertices(index);
+      }
+      public Builder SetVertices(int index, global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.vertices_[index] = value;
+        return this;
+      }
+      public Builder SetVertices(int index, global::messages.Vec2.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.vertices_[index] = builderForValue.Build();
+        return this;
+      }
+      public Builder AddVertices(global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.vertices_.Add(value);
+        return this;
+      }
+      public Builder AddVertices(global::messages.Vec2.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.vertices_.Add(builderForValue.Build());
+        return this;
+      }
+      public Builder AddRangeVertices(scg::IEnumerable<global::messages.Vec2> values) {
+        PrepareBuilder();
+        result.vertices_.Add(values);
+        return this;
+      }
+      public Builder ClearVertices() {
+        PrepareBuilder();
+        result.vertices_.Clear();
+        return this;
+      }
+    }
+    static StartPathReply() {
       object.ReferenceEquals(global::messages.Message.Descriptor, null);
     }
   }
