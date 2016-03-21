@@ -5,15 +5,27 @@ using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 public class NavMeshFileGenerator {
 
+    struct Vec2Int {
+        public int x;
+        public int y;
+        public static Vec2Int FromVec2(Vector2 v) {
+            return new Vec2Int() { x = Mathf.RoundToInt(v.x * 1000), y = Mathf.RoundToInt(v.y * 1000) };
+        }
+
+        public Vector2 ToVec2()
+        {
+            return new Vector2(this.x / 1000f, this.y / 1000f);
+        }
+    }
     [MenuItem("Window/GenerateNavmeshFile")]
     public static void GenerateFile() {
-        Dictionary<Vector2, int> vertDict = new Dictionary<Vector2, int>();
+
+        Dictionary<Vec2Int, int> vertDict = new Dictionary<Vec2Int, int>();
         try
         {
-            using (FileStream fs = File.OpenWrite(Path.Combine(Application.dataPath, "NavMesh/navmesh.bytes")))
+            using (FileStream fs = File.Open(Path.Combine(Application.dataPath, "NavMesh/navmesh.bytes"), FileMode.Create))
             {
                 var mesh = NavMesh.CalculateTriangulation();
                 var vertices = mesh.vertices;
@@ -21,12 +33,14 @@ public class NavMeshFileGenerator {
                     var p = vertices[i];
                     var p2d = new Vector2(p.x, p.z);
                     int index = 0;
-                    if (!vertDict.TryGetValue(p2d, out index)) {
-                        vertDict[p2d] = j;
+                    var key = Vec2Int.FromVec2(p2d);
+                    if (!vertDict.TryGetValue(key, out index))
+                    {
+                        vertDict[key] = j;
                         j++;
                     }
                 }
-                List<KeyValuePair<Vector2, int>> vertList = vertDict.ToList();
+                List<KeyValuePair<Vector2, int>> vertList = vertDict.Select(x => new KeyValuePair<Vector2, int>(x.Key.ToVec2(), x.Value)).ToList();
                 vertList.Sort((a, b) => a.Value - b.Value);
                 var vertLenBytes = BitConverter.GetBytes(vertList.Count);
                 fs.Write(vertLenBytes, 0, vertLenBytes.Length);
@@ -48,9 +62,9 @@ public class NavMeshFileGenerator {
                     var p1 = vertices[triIndices[i]];
                     var p2 = vertices[triIndices[i + 1]];
                     var p3 = vertices[triIndices[i + 2]];
-                    var idx1 = vertDict[new Vector2(p1.x, p1.z)];
-                    var idx2 = vertDict[new Vector2(p2.x, p2.z)];
-                    var idx3 = vertDict[new Vector2(p3.x, p3.z)];
+                    var idx1 = vertDict[Vec2Int.FromVec2(new Vector2(p1.x, p1.z))];
+                    var idx2 = vertDict[Vec2Int.FromVec2(new Vector2(p2.x, p2.z))];
+                    var idx3 = vertDict[Vec2Int.FromVec2(new Vector2(p3.x, p3.z))];
                     newIndice[i] = idx1;
                     newIndice[i + 1] = idx2;
                     newIndice[i + 2] = idx3;

@@ -60,6 +60,28 @@ public class NavmeshUtility : MonoBehaviour {
                 }
             }
         }
+        var parent = new GameObject("Text").transform;
+        parent.transform.position = GameObject.Find("NavmeshRender").transform.position;
+        for (int i = 0; i < vertices.Length; i++) {
+            var txt = Instantiate(Resources.Load("VertIndex")) as GameObject;
+            txt.GetComponent<TextMesh>().text = i.ToString();
+            txt.transform.parent = parent;
+            txt.name = i.ToString();
+            txt.transform.localPosition = new Vector3(vertices[i].x, 0, vertices[i].y);
+        }
+            for (int i = 0; i < triangle.Length; i += 3)
+            {
+                int triIdx = i / 3;
+                Vector2 A = vertices[triangle[i]];
+                Vector2 B = vertices[triangle[i + 1]];
+                Vector2 C = vertices[triangle[i + 2]];
+                var center = (A + B + C) / 3;
+                var txt = Instantiate(Resources.Load("TriangleIndex")) as GameObject;
+                txt.GetComponent<TextMesh>().text = triIdx.ToString();
+                txt.transform.parent = parent;
+                txt.name = triIdx.ToString();
+                txt.transform.localPosition = new Vector3(center.x, 0, center.y);
+            }
 	}
 
     public static int GetTriangleIndex(Vector2 P){

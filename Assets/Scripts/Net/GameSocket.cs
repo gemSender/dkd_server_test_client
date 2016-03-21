@@ -99,7 +99,6 @@ public class GameSocket : System.IDisposable{
                 break;
             }
             int msgLen = System.BitConverter.ToInt32(len_buf, 0);
-            Debug.Log("receive: " + msgLen);
             byte[] msgbuf = new byte[msgLen];
             if (!ReadStream(stream, msgbuf, 0, msgLen))
             {
