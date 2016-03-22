@@ -30,6 +30,8 @@ namespace messages {
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.StartPath, global::messages.StartPath.Builder> internal__static_messages_StartPath__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_Vec2__Descriptor;
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.Vec2, global::messages.Vec2.Builder> internal__static_messages_Vec2__FieldAccessorTable;
+    internal static pbd::MessageDescriptor internal__static_messages_Segment__Descriptor;
+    internal static pb::FieldAccess.FieldAccessorTable<global::messages.Segment, global::messages.Segment.Builder> internal__static_messages_Segment__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_StartPathReply__Descriptor;
     internal static pb::FieldAccess.FieldAccessorTable<global::messages.StartPathReply, global::messages.StartPathReply.Builder> internal__static_messages_StartPathReply__FieldAccessorTable;
     internal static pbd::MessageDescriptor internal__static_messages_PlayerStartPath__Descriptor;
@@ -53,34 +55,30 @@ namespace messages {
     
     static Message() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
-          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyI0CgpHZW5NZXNzYWdlEhIKBHR5" + 
-          "cGUYASACKAlSBHR5cGUSEgoEZGF0YRgCIAIoDFIEZGF0YSIhCgVMb2dpbhIY" + 
-          "CgdlcXVpcElkGAEgAigJUgdlcXVpcElkIocBCgtQbGF5ZXJTdGF0ZRIUCgVp" + 
-          "bmRleBgBIAIoBVIFaW5kZXgSDAoBeBgCIAIoAlIBeBIMCgF5GAMgAigCUgF5" + 
-          "Eh4KCmNvbG9ySW5kZXgYBCACKAVSCmNvbG9ySW5kZXgSFAoFbGV2ZWwYBSAC" + 
-          "KAVSBWxldmVsEhAKA2V4cBgGIAIoBVIDZXhwIrABCgpMb2dpblJlcGx5Eh8K" + 
-          "CWVycm9yQ29kZRgBIAEoBToBMFIJZXJyb3JDb2RlEi8KB215U3RhdGUYAiAB" + 
-          "KAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZVIHbXlTdGF0ZRIvCgdwbGF5ZXJz" + 
-          "GAMgAygLMhUubWVzc2FnZXMuUGxheWVyU3RhdGVSB3BsYXllcnMSHwoJdGlt" + 
-          "ZXN0YW1wGAQgASgDOgEwUgl0aW1lc3RhbXAiaQoJU3RhcnRQYXRoEg4KAnN4" + 
-          "GAEgAigCUgJzeBIOCgJzeRgCIAIoAlICc3kSDgoCZHgYAyACKAJSAmR4Eg4K" + 
-          "AmR5GAQgAigCUgJkeRIcCgl0aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCIi" + 
-          "CgRWZWMyEgwKAXgYASACKAJSAXgSDAoBeRgCIAIoAlIBeSI8Cg5TdGFydFBh" + 
-          "dGhSZXBseRIqCgh2ZXJ0aWNlcxgBIAMoCzIOLm1lc3NhZ2VzLlZlYzJSCHZl" + 
-          "cnRpY2VzIoUBCg9QbGF5ZXJTdGFydFBhdGgSFAoFaW5kZXgYASACKAVSBWlu" + 
-          "ZGV4Eg4KAnN4GAIgAigCUgJzeBIOCgJzeRgDIAIoAlICc3kSDgoCZHgYBCAC" + 
-          "KAJSAmR4Eg4KAmR5GAUgAigCUgJkeRIcCgl0aW1lc3RhbXAYBiACKANSCXRp" + 
-          "bWVzdGFtcCJqCgZNb3ZlVG8SDAoBeBgBIAIoAlIBeBIMCgF5GAIgAigCUgF5" + 
-          "EhIKBGRpclgYAyACKAJSBGRpclgSEgoEZGlyWRgEIAIoAlIEZGlyWRIcCgl0" + 
-          "aW1lc3RhbXAYBSACKANSCXRpbWVzdGFtcCKGAQoMUGxheWVyTW92ZVRvEhQK" + 
-          "BWluZGV4GAEgAigFUgVpbmRleBIMCgF4GAIgAigCUgF4EgwKAXkYAyACKAJS" + 
-          "AXkSEgoEZGlyWBgEIAIoAlIEZGlyWBISCgRkaXJZGAUgAigCUgRkaXJZEhwK" + 
-          "CXRpbWVzdGFtcBgGIAIoA1IJdGltZXN0YW1wImIKC1BsYXllckxvZ2luEjUK" + 
-          "CnBsYXllckRhdGEYASACKAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZVIKcGxh" + 
-          "eWVyRGF0YRIcCgl0aW1lc3RhbXAYAiACKANSCXRpbWVzdGFtcCIiCgpQbGF5" + 
-          "ZXJRdWl0EhQKBWluZGV4GAEgAigFUgVpbmRleCJWCgtHZW5SZXBseU1zZxIS" + 
-          "CgR0eXBlGAEgAigJUgR0eXBlEh8KB2lzUmVwbHkYAiABKAg6BWZhbHNlUgdp" + 
-          "c1JlcGx5EhIKBGRhdGEYAyACKAxSBGRhdGE=");
+          "Cg1tZXNzYWdlLnByb3RvEghtZXNzYWdlcyIoCgpHZW5NZXNzYWdlEgwKBHR5" + 
+          "cGUYASACKAkSDAoEZGF0YRgCIAIoDCIYCgVMb2dpbhIPCgdlcXVpcElkGAEg" + 
+          "AigJImIKC1BsYXllclN0YXRlEg0KBWluZGV4GAEgAigFEgkKAXgYAiACKAIS" + 
+          "CQoBeRgDIAIoAhISCgpjb2xvckluZGV4GAQgAigFEg0KBWxldmVsGAUgAigF" + 
+          "EgsKA2V4cBgGIAIoBSKIAQoKTG9naW5SZXBseRIUCgllcnJvckNvZGUYASAB" + 
+          "KAU6ATASJgoHbXlTdGF0ZRgCIAEoCzIVLm1lc3NhZ2VzLlBsYXllclN0YXRl" + 
+          "EiYKB3BsYXllcnMYAyADKAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZRIUCgl0" + 
+          "aW1lc3RhbXAYBCABKAM6ATAiTgoJU3RhcnRQYXRoEgoKAnN4GAEgAigCEgoK" + 
+          "AnN5GAIgAigCEgoKAmR4GAMgAigCEgoKAmR5GAQgAigCEhEKCXRpbWVzdGFt" + 
+          "cBgFIAIoAyIcCgRWZWMyEgkKAXgYASACKAISCQoBeRgCIAIoAiJFCgdTZWdt" + 
+          "ZW50Eh0KBXN0YXJ0GAEgAigLMg4ubWVzc2FnZXMuVmVjMhIbCgNlbmQYAiAC" + 
+          "KAsyDi5tZXNzYWdlcy5WZWMyIlQKDlN0YXJ0UGF0aFJlcGx5EiAKCHZlcnRp" + 
+          "Y2VzGAEgAygLMg4ubWVzc2FnZXMuVmVjMhIgCgVlZGdlcxgCIAMoCzIRLm1l" + 
+          "c3NhZ2VzLlNlZ21lbnQiYwoPUGxheWVyU3RhcnRQYXRoEg0KBWluZGV4GAEg" + 
+          "AigFEgoKAnN4GAIgAigCEgoKAnN5GAMgAigCEgoKAmR4GAQgAigCEgoKAmR5" + 
+          "GAUgAigCEhEKCXRpbWVzdGFtcBgGIAIoAyJNCgZNb3ZlVG8SCQoBeBgBIAIo" + 
+          "AhIJCgF5GAIgAigCEgwKBGRpclgYAyACKAISDAoEZGlyWRgEIAIoAhIRCgl0" + 
+          "aW1lc3RhbXAYBSACKAMiYgoMUGxheWVyTW92ZVRvEg0KBWluZGV4GAEgAigF" + 
+          "EgkKAXgYAiACKAISCQoBeRgDIAIoAhIMCgRkaXJYGAQgAigCEgwKBGRpclkY" + 
+          "BSACKAISEQoJdGltZXN0YW1wGAYgAigDIksKC1BsYXllckxvZ2luEikKCnBs" + 
+          "YXllckRhdGEYASACKAsyFS5tZXNzYWdlcy5QbGF5ZXJTdGF0ZRIRCgl0aW1l" + 
+          "c3RhbXAYAiACKAMiGwoKUGxheWVyUXVpdBINCgVpbmRleBgBIAIoBSJBCgtH" + 
+          "ZW5SZXBseU1zZxIMCgR0eXBlGAEgAigJEhYKB2lzUmVwbHkYAiABKAg6BWZh" + 
+          "bHNlEgwKBGRhdGEYAyACKAw=");
       pbd::FileDescriptor.InternalDescriptorAssigner assigner = delegate(pbd::FileDescriptor root) {
         descriptor = root;
         internal__static_messages_GenMessage__Descriptor = Descriptor.MessageTypes[0];
@@ -107,37 +105,39 @@ namespace messages {
         internal__static_messages_Vec2__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.Vec2, global::messages.Vec2.Builder>(internal__static_messages_Vec2__Descriptor,
                 new string[] { "X", "Y", });
-        internal__static_messages_StartPathReply__Descriptor = Descriptor.MessageTypes[6];
+        internal__static_messages_Segment__Descriptor = Descriptor.MessageTypes[6];
+        internal__static_messages_Segment__FieldAccessorTable = 
+            new pb::FieldAccess.FieldAccessorTable<global::messages.Segment, global::messages.Segment.Builder>(internal__static_messages_Segment__Descriptor,
+                new string[] { "Start", "End", });
+        internal__static_messages_StartPathReply__Descriptor = Descriptor.MessageTypes[7];
         internal__static_messages_StartPathReply__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.StartPathReply, global::messages.StartPathReply.Builder>(internal__static_messages_StartPathReply__Descriptor,
-                new string[] { "Vertices", });
-        internal__static_messages_PlayerStartPath__Descriptor = Descriptor.MessageTypes[7];
+                new string[] { "Vertices", "Edges", });
+        internal__static_messages_PlayerStartPath__Descriptor = Descriptor.MessageTypes[8];
         internal__static_messages_PlayerStartPath__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerStartPath, global::messages.PlayerStartPath.Builder>(internal__static_messages_PlayerStartPath__Descriptor,
                 new string[] { "Index", "Sx", "Sy", "Dx", "Dy", "Timestamp", });
-        internal__static_messages_MoveTo__Descriptor = Descriptor.MessageTypes[8];
+        internal__static_messages_MoveTo__Descriptor = Descriptor.MessageTypes[9];
         internal__static_messages_MoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.MoveTo, global::messages.MoveTo.Builder>(internal__static_messages_MoveTo__Descriptor,
                 new string[] { "X", "Y", "DirX", "DirY", "Timestamp", });
-        internal__static_messages_PlayerMoveTo__Descriptor = Descriptor.MessageTypes[9];
+        internal__static_messages_PlayerMoveTo__Descriptor = Descriptor.MessageTypes[10];
         internal__static_messages_PlayerMoveTo__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerMoveTo, global::messages.PlayerMoveTo.Builder>(internal__static_messages_PlayerMoveTo__Descriptor,
                 new string[] { "Index", "X", "Y", "DirX", "DirY", "Timestamp", });
-        internal__static_messages_PlayerLogin__Descriptor = Descriptor.MessageTypes[10];
+        internal__static_messages_PlayerLogin__Descriptor = Descriptor.MessageTypes[11];
         internal__static_messages_PlayerLogin__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerLogin, global::messages.PlayerLogin.Builder>(internal__static_messages_PlayerLogin__Descriptor,
                 new string[] { "PlayerData", "Timestamp", });
-        internal__static_messages_PlayerQuit__Descriptor = Descriptor.MessageTypes[11];
+        internal__static_messages_PlayerQuit__Descriptor = Descriptor.MessageTypes[12];
         internal__static_messages_PlayerQuit__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.PlayerQuit, global::messages.PlayerQuit.Builder>(internal__static_messages_PlayerQuit__Descriptor,
                 new string[] { "Index", });
-        internal__static_messages_GenReplyMsg__Descriptor = Descriptor.MessageTypes[12];
+        internal__static_messages_GenReplyMsg__Descriptor = Descriptor.MessageTypes[13];
         internal__static_messages_GenReplyMsg__FieldAccessorTable = 
             new pb::FieldAccess.FieldAccessorTable<global::messages.GenReplyMsg, global::messages.GenReplyMsg.Builder>(internal__static_messages_GenReplyMsg__Descriptor,
                 new string[] { "Type", "IsReply", "Data", });
-        pb::ExtensionRegistry registry = pb::ExtensionRegistry.CreateInstance();
-        RegisterAllExtensions(registry);
-        return registry;
+        return null;
       };
       pbd::FileDescriptor.InternalBuildGeneratedFileFrom(descriptorData,
           new pbd::FileDescriptor[] {
@@ -2473,11 +2473,382 @@ namespace messages {
   [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
   [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
   [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+  public sealed partial class Segment : pb::GeneratedMessage<Segment, Segment.Builder> {
+    private Segment() { }
+    private static readonly Segment defaultInstance = new Segment().MakeReadOnly();
+    private static readonly string[] _segmentFieldNames = new string[] { "end", "start" };
+    private static readonly uint[] _segmentFieldTags = new uint[] { 18, 10 };
+    public static Segment DefaultInstance {
+      get { return defaultInstance; }
+    }
+    
+    public override Segment DefaultInstanceForType {
+      get { return DefaultInstance; }
+    }
+    
+    protected override Segment ThisMessage {
+      get { return this; }
+    }
+    
+    public static pbd::MessageDescriptor Descriptor {
+      get { return global::messages.Message.internal__static_messages_Segment__Descriptor; }
+    }
+    
+    protected override pb::FieldAccess.FieldAccessorTable<Segment, Segment.Builder> InternalFieldAccessors {
+      get { return global::messages.Message.internal__static_messages_Segment__FieldAccessorTable; }
+    }
+    
+    public const int StartFieldNumber = 1;
+    private bool hasStart;
+    private global::messages.Vec2 start_;
+    public bool HasStart {
+      get { return hasStart; }
+    }
+    public global::messages.Vec2 Start {
+      get { return start_ ?? global::messages.Vec2.DefaultInstance; }
+    }
+    
+    public const int EndFieldNumber = 2;
+    private bool hasEnd;
+    private global::messages.Vec2 end_;
+    public bool HasEnd {
+      get { return hasEnd; }
+    }
+    public global::messages.Vec2 End {
+      get { return end_ ?? global::messages.Vec2.DefaultInstance; }
+    }
+    
+    public override bool IsInitialized {
+      get {
+        if (!hasStart) return false;
+        if (!hasEnd) return false;
+        if (!Start.IsInitialized) return false;
+        if (!End.IsInitialized) return false;
+        return true;
+      }
+    }
+    
+    public override void WriteTo(pb::ICodedOutputStream output) {
+      int size = SerializedSize;
+      string[] field_names = _segmentFieldNames;
+      if (hasStart) {
+        output.WriteMessage(1, field_names[1], Start);
+      }
+      if (hasEnd) {
+        output.WriteMessage(2, field_names[0], End);
+      }
+      UnknownFields.WriteTo(output);
+    }
+    
+    private int memoizedSerializedSize = -1;
+    public override int SerializedSize {
+      get {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+        
+        size = 0;
+        if (hasStart) {
+          size += pb::CodedOutputStream.ComputeMessageSize(1, Start);
+        }
+        if (hasEnd) {
+          size += pb::CodedOutputStream.ComputeMessageSize(2, End);
+        }
+        size += UnknownFields.SerializedSize;
+        memoizedSerializedSize = size;
+        return size;
+      }
+    }
+    
+    public static Segment ParseFrom(pb::ByteString data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static Segment ParseFrom(pb::ByteString data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static Segment ParseFrom(byte[] data) {
+      return ((Builder) CreateBuilder().MergeFrom(data)).BuildParsed();
+    }
+    public static Segment ParseFrom(byte[] data, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(data, extensionRegistry)).BuildParsed();
+    }
+    public static Segment ParseFrom(global::System.IO.Stream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static Segment ParseFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    public static Segment ParseDelimitedFrom(global::System.IO.Stream input) {
+      return CreateBuilder().MergeDelimitedFrom(input).BuildParsed();
+    }
+    public static Segment ParseDelimitedFrom(global::System.IO.Stream input, pb::ExtensionRegistry extensionRegistry) {
+      return CreateBuilder().MergeDelimitedFrom(input, extensionRegistry).BuildParsed();
+    }
+    public static Segment ParseFrom(pb::ICodedInputStream input) {
+      return ((Builder) CreateBuilder().MergeFrom(input)).BuildParsed();
+    }
+    public static Segment ParseFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+      return ((Builder) CreateBuilder().MergeFrom(input, extensionRegistry)).BuildParsed();
+    }
+    private Segment MakeReadOnly() {
+      return this;
+    }
+    
+    public static Builder CreateBuilder() { return new Builder(); }
+    public override Builder ToBuilder() { return CreateBuilder(this); }
+    public override Builder CreateBuilderForType() { return new Builder(); }
+    public static Builder CreateBuilder(Segment prototype) {
+      return new Builder(prototype);
+    }
+    
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
+    public sealed partial class Builder : pb::GeneratedBuilder<Segment, Builder> {
+      protected override Builder ThisBuilder {
+        get { return this; }
+      }
+      public Builder() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+      }
+      internal Builder(Segment cloneFrom) {
+        result = cloneFrom;
+        resultIsReadOnly = true;
+      }
+      
+      private bool resultIsReadOnly;
+      private Segment result;
+      
+      private Segment PrepareBuilder() {
+        if (resultIsReadOnly) {
+          Segment original = result;
+          result = new Segment();
+          resultIsReadOnly = false;
+          MergeFrom(original);
+        }
+        return result;
+      }
+      
+      public override bool IsInitialized {
+        get { return result.IsInitialized; }
+      }
+      
+      protected override Segment MessageBeingBuilt {
+        get { return PrepareBuilder(); }
+      }
+      
+      public override Builder Clear() {
+        result = DefaultInstance;
+        resultIsReadOnly = true;
+        return this;
+      }
+      
+      public override Builder Clone() {
+        if (resultIsReadOnly) {
+          return new Builder(result);
+        } else {
+          return new Builder().MergeFrom(result);
+        }
+      }
+      
+      public override pbd::MessageDescriptor DescriptorForType {
+        get { return global::messages.Segment.Descriptor; }
+      }
+      
+      public override Segment DefaultInstanceForType {
+        get { return global::messages.Segment.DefaultInstance; }
+      }
+      
+      public override Segment BuildPartial() {
+        if (resultIsReadOnly) {
+          return result;
+        }
+        resultIsReadOnly = true;
+        return result.MakeReadOnly();
+      }
+      
+      public override Builder MergeFrom(pb::IMessage other) {
+        if (other is Segment) {
+          return MergeFrom((Segment) other);
+        } else {
+          base.MergeFrom(other);
+          return this;
+        }
+      }
+      
+      public override Builder MergeFrom(Segment other) {
+        if (other == global::messages.Segment.DefaultInstance) return this;
+        PrepareBuilder();
+        if (other.HasStart) {
+          MergeStart(other.Start);
+        }
+        if (other.HasEnd) {
+          MergeEnd(other.End);
+        }
+        this.MergeUnknownFields(other.UnknownFields);
+        return this;
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input) {
+        return MergeFrom(input, pb::ExtensionRegistry.Empty);
+      }
+      
+      public override Builder MergeFrom(pb::ICodedInputStream input, pb::ExtensionRegistry extensionRegistry) {
+        PrepareBuilder();
+        pb::UnknownFieldSet.Builder unknownFields = null;
+        uint tag;
+        string field_name;
+        while (input.ReadTag(out tag, out field_name)) {
+          if(tag == 0 && field_name != null) {
+            int field_ordinal = global::System.Array.BinarySearch(_segmentFieldNames, field_name, global::System.StringComparer.Ordinal);
+            if(field_ordinal >= 0)
+              tag = _segmentFieldTags[field_ordinal];
+            else {
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              continue;
+            }
+          }
+          switch (tag) {
+            case 0: {
+              throw pb::InvalidProtocolBufferException.InvalidTag();
+            }
+            default: {
+              if (pb::WireFormat.IsEndGroupTag(tag)) {
+                if (unknownFields != null) {
+                  this.UnknownFields = unknownFields.Build();
+                }
+                return this;
+              }
+              if (unknownFields == null) {
+                unknownFields = pb::UnknownFieldSet.CreateBuilder(this.UnknownFields);
+              }
+              ParseUnknownField(input, unknownFields, extensionRegistry, tag, field_name);
+              break;
+            }
+            case 10: {
+              global::messages.Vec2.Builder subBuilder = global::messages.Vec2.CreateBuilder();
+              if (result.hasStart) {
+                subBuilder.MergeFrom(Start);
+              }
+              input.ReadMessage(subBuilder, extensionRegistry);
+              Start = subBuilder.BuildPartial();
+              break;
+            }
+            case 18: {
+              global::messages.Vec2.Builder subBuilder = global::messages.Vec2.CreateBuilder();
+              if (result.hasEnd) {
+                subBuilder.MergeFrom(End);
+              }
+              input.ReadMessage(subBuilder, extensionRegistry);
+              End = subBuilder.BuildPartial();
+              break;
+            }
+          }
+        }
+        
+        if (unknownFields != null) {
+          this.UnknownFields = unknownFields.Build();
+        }
+        return this;
+      }
+      
+      
+      public bool HasStart {
+       get { return result.hasStart; }
+      }
+      public global::messages.Vec2 Start {
+        get { return result.Start; }
+        set { SetStart(value); }
+      }
+      public Builder SetStart(global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.hasStart = true;
+        result.start_ = value;
+        return this;
+      }
+      public Builder SetStart(global::messages.Vec2.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.hasStart = true;
+        result.start_ = builderForValue.Build();
+        return this;
+      }
+      public Builder MergeStart(global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        if (result.hasStart &&
+            result.start_ != global::messages.Vec2.DefaultInstance) {
+            result.start_ = global::messages.Vec2.CreateBuilder(result.start_).MergeFrom(value).BuildPartial();
+        } else {
+          result.start_ = value;
+        }
+        result.hasStart = true;
+        return this;
+      }
+      public Builder ClearStart() {
+        PrepareBuilder();
+        result.hasStart = false;
+        result.start_ = null;
+        return this;
+      }
+      
+      public bool HasEnd {
+       get { return result.hasEnd; }
+      }
+      public global::messages.Vec2 End {
+        get { return result.End; }
+        set { SetEnd(value); }
+      }
+      public Builder SetEnd(global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.hasEnd = true;
+        result.end_ = value;
+        return this;
+      }
+      public Builder SetEnd(global::messages.Vec2.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.hasEnd = true;
+        result.end_ = builderForValue.Build();
+        return this;
+      }
+      public Builder MergeEnd(global::messages.Vec2 value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        if (result.hasEnd &&
+            result.end_ != global::messages.Vec2.DefaultInstance) {
+            result.end_ = global::messages.Vec2.CreateBuilder(result.end_).MergeFrom(value).BuildPartial();
+        } else {
+          result.end_ = value;
+        }
+        result.hasEnd = true;
+        return this;
+      }
+      public Builder ClearEnd() {
+        PrepareBuilder();
+        result.hasEnd = false;
+        result.end_ = null;
+        return this;
+      }
+    }
+    static Segment() {
+      object.ReferenceEquals(global::messages.Message.Descriptor, null);
+    }
+  }
+  
+  [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+  [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+  [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ProtoGen", "2.4.1.473")]
   public sealed partial class StartPathReply : pb::GeneratedMessage<StartPathReply, StartPathReply.Builder> {
     private StartPathReply() { }
     private static readonly StartPathReply defaultInstance = new StartPathReply().MakeReadOnly();
-    private static readonly string[] _startPathReplyFieldNames = new string[] { "vertices" };
-    private static readonly uint[] _startPathReplyFieldTags = new uint[] { 10 };
+    private static readonly string[] _startPathReplyFieldNames = new string[] { "edges", "vertices" };
+    private static readonly uint[] _startPathReplyFieldTags = new uint[] { 18, 10 };
     public static StartPathReply DefaultInstance {
       get { return defaultInstance; }
     }
@@ -2510,9 +2881,24 @@ namespace messages {
       return vertices_[index];
     }
     
+    public const int EdgesFieldNumber = 2;
+    private pbc::PopsicleList<global::messages.Segment> edges_ = new pbc::PopsicleList<global::messages.Segment>();
+    public scg::IList<global::messages.Segment> EdgesList {
+      get { return edges_; }
+    }
+    public int EdgesCount {
+      get { return edges_.Count; }
+    }
+    public global::messages.Segment GetEdges(int index) {
+      return edges_[index];
+    }
+    
     public override bool IsInitialized {
       get {
         foreach (global::messages.Vec2 element in VerticesList) {
+          if (!element.IsInitialized) return false;
+        }
+        foreach (global::messages.Segment element in EdgesList) {
           if (!element.IsInitialized) return false;
         }
         return true;
@@ -2523,7 +2909,10 @@ namespace messages {
       int size = SerializedSize;
       string[] field_names = _startPathReplyFieldNames;
       if (vertices_.Count > 0) {
-        output.WriteMessageArray(1, field_names[0], vertices_);
+        output.WriteMessageArray(1, field_names[1], vertices_);
+      }
+      if (edges_.Count > 0) {
+        output.WriteMessageArray(2, field_names[0], edges_);
       }
       UnknownFields.WriteTo(output);
     }
@@ -2537,6 +2926,9 @@ namespace messages {
         size = 0;
         foreach (global::messages.Vec2 element in VerticesList) {
           size += pb::CodedOutputStream.ComputeMessageSize(1, element);
+        }
+        foreach (global::messages.Segment element in EdgesList) {
+          size += pb::CodedOutputStream.ComputeMessageSize(2, element);
         }
         size += UnknownFields.SerializedSize;
         memoizedSerializedSize = size;
@@ -2576,6 +2968,7 @@ namespace messages {
     }
     private StartPathReply MakeReadOnly() {
       vertices_.MakeReadOnly();
+      edges_.MakeReadOnly();
       return this;
     }
     
@@ -2668,6 +3061,9 @@ namespace messages {
         if (other.vertices_.Count != 0) {
           result.vertices_.Add(other.vertices_);
         }
+        if (other.edges_.Count != 0) {
+          result.edges_.Add(other.edges_);
+        }
         this.MergeUnknownFields(other.UnknownFields);
         return this;
       }
@@ -2713,6 +3109,10 @@ namespace messages {
             }
             case 10: {
               input.ReadMessageArray(tag, field_name, result.vertices_, global::messages.Vec2.DefaultInstance, extensionRegistry);
+              break;
+            }
+            case 18: {
+              input.ReadMessageArray(tag, field_name, result.edges_, global::messages.Segment.DefaultInstance, extensionRegistry);
               break;
             }
           }
@@ -2766,6 +3166,50 @@ namespace messages {
       public Builder ClearVertices() {
         PrepareBuilder();
         result.vertices_.Clear();
+        return this;
+      }
+      
+      public pbc::IPopsicleList<global::messages.Segment> EdgesList {
+        get { return PrepareBuilder().edges_; }
+      }
+      public int EdgesCount {
+        get { return result.EdgesCount; }
+      }
+      public global::messages.Segment GetEdges(int index) {
+        return result.GetEdges(index);
+      }
+      public Builder SetEdges(int index, global::messages.Segment value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.edges_[index] = value;
+        return this;
+      }
+      public Builder SetEdges(int index, global::messages.Segment.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.edges_[index] = builderForValue.Build();
+        return this;
+      }
+      public Builder AddEdges(global::messages.Segment value) {
+        pb::ThrowHelper.ThrowIfNull(value, "value");
+        PrepareBuilder();
+        result.edges_.Add(value);
+        return this;
+      }
+      public Builder AddEdges(global::messages.Segment.Builder builderForValue) {
+        pb::ThrowHelper.ThrowIfNull(builderForValue, "builderForValue");
+        PrepareBuilder();
+        result.edges_.Add(builderForValue.Build());
+        return this;
+      }
+      public Builder AddRangeEdges(scg::IEnumerable<global::messages.Segment> values) {
+        PrepareBuilder();
+        result.edges_.Add(values);
+        return this;
+      }
+      public Builder ClearEdges() {
+        PrepareBuilder();
+        result.edges_.Clear();
         return this;
       }
     }

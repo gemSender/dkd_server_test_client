@@ -63,34 +63,48 @@ public class Player : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (IsMine) {
-            if (Input.GetMouseButtonDown(1)) {
+            var now = ConnectionHandler.Instance.CurrentTimeMS;
+            bool leftBtnDown = Input.GetMouseButtonDown(0);
+            bool rightBtnDown = Input.GetMouseButtonDown(1);
+            if (leftBtnDown || rightBtnDown)
+            {
                 var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, 1 << LayerMask.NameToLayer("Ground"))) {
                     var hitPos = hit.point;
-                    agent.SetDestination(hitPos);
-                    state = State.Moving;
-                    var currentPos = transform.localPosition;
-                    currentPos.y = 0;
-                    ConnectionHandler.Instance.SendUnpackedMessage<messages.StartPathReply>(messages.StartPath.CreateBuilder()
-                        .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build(), 
-                        messages.StartPathReply.ParseFrom, 
-                        (reply) => {
-                            this.serverPath = reply;
-                            foreach(var vert in reply.VerticesList){
-                                Debug.LogFormat("server vert: ({0}, {1})", vert.X, vert.Y);
-                            }
-                        });
-                    int startTri = NavmeshUtility.GetTriangleIndex(new Vector2(currentPos.x, currentPos.z));
-                    int endTri = NavmeshUtility.GetTriangleIndex(new Vector2(hitPos.x, hitPos.z));
-                    Debug.LogFormat("startTriIndex: {0}, endTriIndex: {1}", startTri, endTri);
-                    NavMeshPath nvp = new NavMeshPath();
-                    NavMesh.CalculatePath(currentPos, hitPos, int.MaxValue, nvp);
-                    Debug.Log("path:");
-                    clientPath = nvp.corners;
+                    if (rightBtnDown)
+                    {
+                        agent.SetDestination(hitPos);
+                        state = State.Moving;
+                        var currentPos = transform.localPosition;
+                        currentPos.y = 0;
+                        ConnectionHandler.Instance.SendUnpackedMessage<messages.StartPathReply>(messages.StartPath.CreateBuilder()
+                            .SetDx(hitPos.x).SetDy(hitPos.z).SetSx(currentPos.x).SetSy(currentPos.z).SetTimestamp(ConnectionHandler.Instance.CurrentTimeMS).Build(),
+                            messages.StartPathReply.ParseFrom,
+                            (reply) =>
+                            {
+                                this.serverPath = reply;
+                            });
+                        int startTri = NavmeshUtility.GetTriangleIndex(new Vector2(currentPos.x, currentPos.z));
+                        int endTri = NavmeshUtility.GetTriangleIndex(new Vector2(hitPos.x, hitPos.z));
+                        NavMeshPath nvp = new NavMeshPath();
+                        agent.CalculatePath(hitPos, nvp);
+                        Debug.Log("path:");
+                        clientPath = nvp.corners;
+                    }
+                    else {
+                        transform.position = hitPos;
+                        agent.SetDestination(hitPos);
+                        var forward = transform.forward;
+                        ConnectionHandler.Instance.SendUnpackedMessage(messages.MoveTo.CreateBuilder()
+                            .SetX(hitPos.x)
+                            .SetY(hitPos.z)
+                            .SetDirX(forward.x)
+                            .SetDirY(forward.z)
+                            .SetTimestamp(now).Build());
+                    }
                 }
             }
-            var now = ConnectionHandler.Instance.CurrentTimeMS;
             int deltaTimeMS = (int)(now - lastSyncPosTime);
             if (deltaTimeMS > 300)
             {
@@ -113,7 +127,14 @@ public class Player : MonoBehaviour {
             {
                 var p1 = this.serverPath.GetVertices(i - 1);
                 var p2 = this.serverPath.GetVertices(i);
-                Debug.DrawLine(new Vector3(p1.X, 0, p1.Y), new Vector3(p2.X, 0, p2.Y), Color.blue, 0, false);
+                Debug.DrawLine(new Vector3(p1.X, 0, p1.Y), new Vector3(p2.X, 0, p2.Y), Color.blue);
+            }
+            for (int i = 0, imax = this.serverPath.EdgesCount; i < imax; i++) { 
+                var edge = this.serverPath.GetEdges(i);
+                var from = new Vector3(edge.Start.X, 0, edge.Start.Y);
+                var to = new Vector3(edge.End.X, 0, edge.End.Y);
+                Debug.DrawLine(from, Vector3.Lerp(from, to, 0.8f), Color.yellow);
+                Debug.DrawLine(Vector3.Lerp(from, to, 0.8f), to, Color.white);
             }
         }
         if (clientPath != null)
